@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <WDPH_CustomRegistrationFields>
+            <active>true</active>
+            <codePool>local</codePool>
+            <depends><Mage_Customer/></depends>
+        </WDPH_CustomRegistrationFields>
+    </modules>
+</config> 

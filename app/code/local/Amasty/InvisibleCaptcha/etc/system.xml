@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2017 Amasty (https://www.amasty.com)
+ * @package Amasty_InvisibleCaptcha
+ */
+-->
+<config>
+    <sections>
+        <aminvisiblecaptcha translate="label" module="aminvisiblecaptcha">
+            <label>Google Invisible Captcha</label>
+            <tab>amasty</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>71509</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <general translate="label">
+                    <label>General</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>0</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <enabledCaptcha translate="label">
+                            <label>Enable Invisible Captcha</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </enabledCaptcha>
+                        <captchaKey translate="label comment">
+                            <label>Site Key</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[You can generate site key <a href="https://www.google.com/recaptcha/admin" target="_blank">here</a>]]></comment>
+                            <depends>
+                                <enabledCaptcha>1</enabledCaptcha>
+                            </depends>
+                        </captchaKey>
+                        <captchaSecret translate="label comment">
+                            <label>Secret Key</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[You can generate secret key <a href="https://www.google.com/recaptcha/admin" target="_blank">here</a>]]></comment>
+                            <depends>
+                                <enabledCaptcha>1</enabledCaptcha>
+                            </depends>
+                        </captchaSecret>
+                        <captchaUrls translate="label comment">
+                            <label>URLs to Enable</label>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[For example: <strong>customer/account/createpost</strong> </br>Each url must be on new line]]></comment>
+                            <depends>
+                                <enabledCaptcha>1</enabledCaptcha>
+                            </depends>
+                        </captchaUrls>
+                        <captchaSelectors translate="label comment">
+                            <label>Selectors for Forms</label>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[For example: <strong>.customer-account-create .account-create form</strong> </br>Each selector must be on new line]]></comment>
+                            <depends>
+                                <enabledCaptcha>1</enabledCaptcha>
+                            </depends>
+                        </captchaSelectors>
+                        <badge_position translate="label">
+                            <label>Position for Captcha Badge</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>aminvisiblecaptcha/system_config_source_position_badgePosition</source_model>
+                            <sort_order>60</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <enabledCaptcha>1</enabledCaptcha>
+                            </depends>
+                        </badge_position>
+                        <badge_styles translate="label">
+                            <label>CSS</label>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>70</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <badge_position>inline</badge_position>
+                            </depends>
+                        </badge_styles>
+                    </fields>
+                </general>
+            </groups>
+        </aminvisiblecaptcha>
+    </sections>
+</config>

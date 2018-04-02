@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<layout>    
+    <customer_account_create>
+        <reference name="customer_form_register">
+            <action method="setTemplate">
+                <template>wdph_customregistrationfields/register.phtml</template>
+            </action>
+        </reference>
+    </customer_account_create>
+</layout>

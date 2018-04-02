@@ -1,0 +1,111 @@
+<?php
+//if ($this->isActivePopUp() && !Mage::helper('newssubscribers')->isMobile()):
+if ($this->isActivePopUp()):
+?>
+<script type="text/javascript">
+    <?php if (is_numeric($this->getCookieLifeTime())): ?>
+    EsNewsSubscribers.setCookieLiveTime(<?php echo $this->getCookieLifeTime(); ?>);
+    <?php endif; ?>
+    <?php if ($this->getCookieName()): ?>
+    EsNewsSubscribers.setCookieName('<?php echo $this->getCookieName(); ?>');
+    <?php endif; ?>
+    EsNewsSubscribers.setBaseUrl('<?php echo $this->getBaseUrl(); ?>');
+</script>
+<div id="esns_background_layer">
+    <?php if ($this->getTheme() == 'default'): ?>
+    <div id="esns_box_layer">
+        <div id="esns_box_close"></div>
+        <div id="esns_box_title">
+            <?php if ($this->getFirstTitle()): ?>
+            <div id="esns_box_block_1">
+               <?php echo $this->getFirstTitle() ?>
+            </div>
+            <?php endif; ?>
+            <?php if ($this->getSecondTitle()): ?>
+            <div id="esns_box_block_2">
+                <?php echo $this->getSecondTitle() ?>
+            </div>
+            <?php endif; ?>
+        </div>
+
+        <?php if ($this->getText()): ?>
+        <div class="esns_box_lines"></div>
+        <div id="esns_box_block_3">
+            <?php echo $this->getText() ?>
+        </div>
+        <?php endif; ?>
+        <div class="esns_box_lines"></div>
+        <div id="esns_box_subscribe">
+            <div id="esns_box_subscribe_response_error"></div>
+            <div id="esns_box_subscribe_response_success"></div>
+            <div id="esns_box_subscribe_form">
+                <div id="esns_box_subscribe_input"><input onclick="if(this.value=='<?php echo $this->__('Email'); ?>') this.value=''" onblur="if(this.value=='') this.value='<?php echo $this->__('Email'); ?>'" id="esns_email" name="subscribe_email" value="<?php echo $this->__('Email'); ?>" type="text"></div>
+                <div id="esns_box_subscribe_submit"><a href="javascript:void(0)" id="esns_submit" onclick="goog_report_conversion ('https://www.glovida.com');"><?php echo $this->__('Subscribe'); ?></a></div>
+            </div>
+        </div>
+    </div>
+    <?php elseif($this->getTheme() == 'label'): ?>
+    <div id="esns_box_layer" class="tl">
+        <div id="esns_box_close"></div>
+
+
+            <div id="esns_box_block_1">
+                <?php echo $this->getFirstTitle() ?>
+            </div>
+
+
+            <div id="esns_box_block_2">
+                <?php echo $this->getSecondTitle() ?>
+            </div>
+
+
+
+        <div id="esns_box_block_3">
+            <?php echo $this->getText() ?>
+        </div>
+
+        <div id="esns_box_subscribe">
+            <div id="esns_box_subscribe_response_error"></div>
+            <div id="esns_box_subscribe_response_success"></div>
+            <div id="esns_box_subscribe_form">
+                <div id="esns_box_subscribe_input"><input onclick="if(this.value=='<?php echo $this->__('Email'); ?>') this.value=''" onblur="if(this.value=='') this.value='<?php echo $this->__('Email'); ?>'" id="esns_email" name="subscribe_email" value="<?php echo $this->__('Email'); ?>" type="text"></div>
+                <div id="esns_box_subscribe_submit"><a href="javascript:void(0)" id="esns_submit" onclick="goog_report_conversion ('https://www.glovida.com');"><?php echo $this->__('Subscribe'); ?></a></div>
+            </div>
+        </div>
+    </div>
+    <?php endif; ?>
+</div>
+
+
+<!-- Google Code for Email Registration Conversion Page
+In your html page, add the snippet and call
+goog_report_conversion when someone clicks on the
+chosen link or button. -->
+
+<script type="text/javascript">
+  /* <![CDATA[ */
+  goog_snippet_vars = function() {
+    var w = window;
+    w.google_conversion_id = 878608688;
+    w.google_conversion_label = "4KFrCPiu5HEQsIL6ogM";
+    w.google_remarketing_only = false;
+  }
+  // DO NOT CHANGE THE CODE BELOW.
+  goog_report_conversion = function(url) {
+    goog_snippet_vars();
+    window.google_conversion_format = "3";
+    var opt = new Object();
+    opt.onload_callback = function() {
+    if (typeof(url) != 'undefined') {
+      window.location = url;
+    }
+  }
+  var conv_handler = window['google_trackConversion'];
+  if (typeof(conv_handler) == 'function') {
+    conv_handler(opt);
+  }
+}
+/* ]]> */
+</script>
+<script type="text/javascript" src="//www.googleadservices.com/pagead/conversion_async.js"></script>
+<?php endif; ?>

@@ -1,0 +1,358 @@
+
+<div id="user_amin_div" style="display: none;">
+<?php 
+		   if(Mage::helper('usersurvey')->getextensionenable()){
+		   $width = Mage::helper('usersurvey')->getimagewidth();
+		    $height = Mage::helper('usersurvey')->getimageheight();
+		    if($width > 20 and $width <500)
+		    {
+			
+		    }else
+		    {
+			$width = 120;		
+		    }
+		    if($height > 20 and $height <500)
+		    {
+			
+		    }else
+		    {
+			$height = 120;		
+		    }
+		     	$ipaddress = $_SERVER["REMOTE_ADDR"];          
+                 $ip = Mage::helper('usersurvey')->getcmsipsurveydata($ipaddress);
+		
+		    $type = Mage::helper('usersurvey')->getsurvytype();
+		    if(sizeof($ip) == 0 and $type == '1'){ ?>
+		   <?php if($this->getData('block_id')){
+					
+			$arr = Mage::helper('usersurvey')->getcmssurveyiddata($this->getData('block_id'));
+			
+		    }else{
+
+		      $arr = Mage::helper('usersurvey')->getcmssurveydata();
+		      
+		      }
+//print_r($arr);
+		           if(sizeof($arr) > 0 and $arr != '' ){
+		      ?>
+<script type="text/javascript">
+jQuery.noConflict();
+
+
+jQuery(window).bind("load", function() {
+	
+	jQuery.fancybox.open([
+            {
+                fitToView: true,
+                width: '70%',
+                height: '70%',
+                autoSize: true,
+                closeClick: false,
+                openSpeed: 'slow',
+                transitionIn: 'elastic',
+                content: jQuery('#survey_div'),
+                centerOnScroll : true,
+                openMethod: 'stickyupIn',
+                closeMethod: 'stickyupOut',
+          }
+        ]);
+});
+  
+
+</script>
+<div class="fieldset" id="survey_div">
+	<h1><?php echo $this->__('Give Us Your Feed Back')?> </h1>	   
+   <h2 class="legend"><?php
+  
+   echo $arr['title']; ?></h2>
+  <div id="result">
+		    <input type="hidden" name="qid" id="qid" value="<?php echo $arr['set_id'];?>" />
+   <?php
+  		$vali = '';
+        $i=1;
+	$q_ids = explode(',', $arr['question_ids']);
+    $question_ids = array_values(array_filter($q_ids));
+    //print_r($question_ids); exit();
+    $resource = Mage::getSingleton('core/resource');
+    $read = $resource->getConnection('core_read');
+    $tableName = $resource->getTableName('fme_answers');
+   foreach($question_ids as $question_id)
+   {
+	 	$j=1;
+	   	$select= "<select class='usersurveybox ' style='max-width:160px;width:94%; padding: 3px; margin:10px;' name='types' onchange='setvalue(this)' id='type_".$question_id."'>
+			<option value='0' selected='selected'>".Mage::helper('usersurvey')->__('Select please')."</option>";
+		$rst[] = $question_id;
+		$result = $read->fetchAll("select * from  ".$tableName." where question_id =".$question_id." order by sort_order");
+		$type = Mage::helper('usersurvey')->getQuestionType($question_id);
+
+  
+    
+    ?>
+    
+    	<div class="ques_<?php echo  $question_id;?>">
+		<div><?php echo $i?>. <?php echo Mage::helper('usersurvey')->getfield('qtitle',$question_id) ?>?</div>
+		<div style="display:table-row;" value="1" class="imgs_question_1">
+		<?php foreach($result as $newrow){?>
+		
+		 <?php if($type =='2'){ ?>   
+		<div value="<?php echo $newrow['answer_id']?>" class="my_img" style="float:left; position:relative;">
+				<!--<img src="">-->
+                <img width="<?php echo $width ?>" height="<?php echo $height ?>" alt="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA);?>usersurvey/<?php echo $newrow['answer_type']; ?>" src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA);?>usersurvey/<?php echo $newrow['answer_type']; ?>">
+          </div>
+	  <?php }else{
+	    
+			$vali .= "<option value='".$newrow['answer_id']."'>".$newrow['answer_type']."</option>";
+		 }
+	    ?>
+	  
+		
+		 <?php  $j++;}
+		  if($type =='1'){
+		 echo   $select.$vali."</select>"; 
+		    $vali ='';
+	   }
+		 
+		 //-- foreach loop ends here ?>
+		
+		
+          </div>
+	 		
+	</div>
+	<?php $i++;} ?>
+<!-- Repeat loop code --------------- -->	
+</div><?php } ?>
+  ss
+    <button  class="button " id="cmsb" title="Survey" type="button"><span><span><?php echo Mage::helper('usersurvey')->__('Submit') ?></span></span></button>
+      </div>
+<script language="javaScript" type="text/javascript">
+
+/*<![CDATA[*/
+var answ = new Array();
+var stuff = [];
+var JSONObject =new Array();
+function setvalue(vari)
+  {
+    if(document.getElementById(vari.id).value !=0)
+    {
+	answ['answer'] = document.getElementById(vari.id).value;	    
+	answ['qstn']  =	 vari.id;
+	stuff.push(answ['qstn']);
+	stuff.push(answ['answer']);
+	qid = jQuery('#qid').attr('value');
+    }
+  }
+jQuery(document).ready(function(){
+
+    
+	for (var i = 1; i <= 5; i++) {
+		jQuery('.imgs_question_' + i).find('div').hover(
+			function(){  
+				if (jQuery(this).attr( 'class' )!='my_img_selected') 
+					jQuery(this).attr( 'class' , 'my_img_hover'  ); 
+				return false;
+			},
+			function(){ 
+				if (jQuery(this).attr( 'class' )!='my_img_selected') 
+					jQuery(this).attr( 'class' , 'my_img'  ); 
+				return false;
+			}
+		);
+		jQuery('.imgs_question_' + i).find('div').click( 
+			function(){
+				jQuery(this).parent().find('div').attr( 'class' , 'my_img' );
+				jQuery(this).attr( 'class' , 'my_img_selected'  );
+		                answ['answer'] = jQuery(this).attr( 'value' );
+				answ['qstn'] = jQuery(this).parent().parent().attr('class');
+				stuff.push(answ['qstn']);
+				stuff.push(answ['answer']);
+				qid = jQuery('#qid').attr('value');
+				jQuery(this).parent().find('div').find('#my_logo').remove();
+				var url='<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA);?>usersurvey/tick_1.png';
+				jQuery(this).append('<div id="my_logo" style="display:block;z-index:1001;position:absolute;top:0px;left:0px; margin-left: 27px; padding-top: 30px;"><img src="' + url + '" width="' + 80 +'" height="' + 80 +'"></div>');
+				return false;
+			}
+		);
+	}
+ jQuery("#cmsb").one('click', function(e){
+    jQuery.ajax({
+        type:  'post', 
+        url:  '<?php echo Mage::helper('core/url')->getHomeUrl()?>usersurvey/index/getajaxrequest',
+        data:  { result : stuff, qstid:qid },
+        success: function(resp) {
+      	jQuery("#result").html(resp);
+      	jQuery.fancybox.close();
+        } 
+
+      });
+                   
+    });
+});
+
+/*]]>*/
+</script>
+ <?php }elseif($type == '2'){ ?>
+ 
+<?php   $arr = Mage::helper('usersurvey')->getcmssurveydata();
+    
+		     if(sizeof($arr) > 0 and $arr != '' ){
+		    ?>
+		    <script type="text/javascript">
+jQuery.noConflict();
+
+
+jQuery(window).bind("load", function() {
+	
+	jQuery.fancybox.open([
+            {
+                fitToView: true,
+                width: '70%',
+                height: '70%',
+                autoSize: true,
+                closeClick: false,
+                openSpeed: 'slow',
+                transitionIn: 'elastic',
+                content: jQuery('#survey_div'),
+                centerOnScroll : true,
+                openMethod: 'stickyupIn',
+                closeMethod: 'stickyupOut',
+          }
+        ]);
+});
+  
+
+</script>
+<div class="fieldset" id="survey_div">
+		    
+   <h2 class="legend"><?php
+  
+   echo $arr['title']; ?></h2>
+  <div id="result">
+		 
+   <?php
+  
+         $i=1;
+	$q_ids = explode(',', $arr['question_ids']);
+    $question_ids = array_values(array_filter($q_ids));
+    //print_r($question_ids); exit();
+    $resource = Mage::getSingleton('core/resource');
+    $read = $resource->getConnection('core_read');
+    $tableName = $resource->getTableName('fme_answers');
+   foreach($question_ids as $question_id)
+   {
+	 	$j=1;
+	   	$select= "<select class='usersurveybox ' style='max-width:160px;width:94%; padding: 3px; margin:10px;' name='types' onchange='setvalue(this)' id='type_".$question_id."'>
+			<option value='0' selected='selected'>".Mage::helper('usersurvey')->__('Select please')."</option>";
+		$rst[] = $question_id;
+		$result = $read->fetchAll("select * from  ".$tableName." where question_id =".$question_id." order by sort_order");
+		$type = Mage::helper('usersurvey')->getQuestionType($question_id);
+  
+    
+    ?>
+   
+    	<div class="ques_<?php echo  $question_id;?>">
+		<div><?php echo $i?>. <?php echo Mage::helper('usersurvey')->getfield('qtitle',$question_id) ?>?</div>
+		<div style="display:table-row;" value="1" class="imgs_question_1">
+		<?php foreach($result as $newrow){?>
+		
+		 <?php if($type =='2'){ ?>   
+		<div value="<?php echo $newrow['answer_id']?>" class="my_img" style="float:left; position:relative;">
+				<!--<img src="">-->
+                <img width="<?php echo $width ?>" height="<?php echo $height ?>" alt="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA);?>usersurvey/<?php echo $newrow['answer_type']; ?>" src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA);?>usersurvey/<?php echo $newrow['answer_type']; ?>">
+           </div> 
+	    <?php }else{
+	    
+			$vali .= "<option value='".$newrow['answer_id']."'>".$newrow['answer_type']."</option>";
+		 }
+	    ?>
+	  
+		
+		 <?php  $j++;}
+		  if($type =='1'){
+		 echo   $select.$vali."</select>"; 
+		    $vali ='';
+	   }
+		 
+		 //-- foreach loop ends here ?>
+         </div>
+	 		
+	</div>
+	<?php $i++;} ?>
+<!-- Repeat loop code --------------- -->	
+
+
+</div>
+ <button  class="button btn-cart" id="cmsb" title="Survey" type="button" style="float:right;"><span><span><?php echo Mage::helper('usersurvey')->__('Submit') ?></span></span></button>
+</div>
+<?php } ?>
+<script language="javaScript" type="text/javascript">
+
+
+/*<![CDATA[*/
+var answ = new Array();
+var stuff = [];
+var JSONObject =new Array();
+function setvalue(vari)
+  {
+    if(document.getElementById(vari.id).value !=0)
+    {
+	answ['answer'] = document.getElementById(vari.id).value;	    
+	answ['qstn']  =	 vari.id;
+	stuff.push(answ['qstn']);
+	stuff.push(answ['answer']);
+	
+    }
+  }
+jQuery(document).ready(function(){
+
+    
+	for (var i = 1; i <= 5; i++) {
+		jQuery('.imgs_question_' + i).find('div').hover(
+			function(){  
+				if (jQuery(this).attr( 'class' )!='my_img_selected') 
+					jQuery(this).attr( 'class' , 'my_img_hover'  ); 
+				return false;
+			},
+			function(){ 
+				if (jQuery(this).attr( 'class' )!='my_img_selected') 
+					jQuery(this).attr( 'class' , 'my_img'  ); 
+				return false;
+			}
+		);
+		jQuery('.imgs_question_' + i).find('div').click( 
+			function(){
+				jQuery(this).parent().find('div').attr( 'class' , 'my_img' );
+				jQuery(this).attr( 'class' , 'my_img_selected'  );
+		                answ['answer'] = jQuery(this).attr( 'value' );
+				answ['qstn'] = jQuery(this).parent().parent().attr('class');
+				stuff.push(answ['qstn']);
+				stuff.push(answ['answer']);
+				jQuery(this).parent().find('div').find('#my_logo').remove();
+				var url='<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA);?>usersurvey/tick_1.png';
+				jQuery(this).append('<div id="my_logo" style="display:block;z-index:1001;position:absolute;top:0px;left:0px; margin-left: 27px; padding-top: 30px;"><img src="' + url + '" width="' + 80 +'" height="' + 80 +'"></div>');
+				return false;
+			}
+		);
+	}
+	 jQuery("#cmsb").one('click', function(e) {
+        	
+      e.preventDefault();
+    jQuery.ajax({
+        type:  'post', 
+       cache:  false ,
+        url:  '<?php echo Mage::helper('core/url')->getHomeUrl()?>usersurvey/index/getajaxrequest',
+        data:  { result : stuff },
+        success: function(resp) {
+      	jQuery("#result").html(resp);
+      	jQuery.fancybox.close();
+        } 
+
+      });
+                   
+    });
+});
+
+/*]]>*/
+</script>
+<?php }} ?>
+</div>
+

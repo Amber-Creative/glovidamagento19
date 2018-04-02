@@ -1,0 +1,51 @@
+<div class="page-title">
+    <h1><?php echo $this->__('Get your discounts now!'); ?></h1>
+</div>
+<?php
+$defaultLink = $this->getShoppingLink();
+$offer = $this->getSpecialOffer(Mage::app()->getStore()->getId());
+?>
+<div id="rewardpoints-referfriends-landing" class="std" style="max-width:100%; margin: 0">
+   
+    <div class="referfriends-body-refer parent-body-offer">
+        <div class="referfriends-body-offer-refer">            
+            <?php if($offer->getSize()): ?>
+                <?php foreach($offer as $value): ?>
+                    <div class="referfriends-body-offer-detail">
+                        <!--<h1><?php //echo $value->getTitle()." <font style='font-weight:normal'>".$this->callHelper()->getDateExpire($value->getFromDate(), $value->getToDate())."</font>"; ?></h1>-->
+                        <div class="referfriends-body-offer-detail-description">
+                        <?php //echo $value->getDescriptionInvited(); ?>
+                        <?php 
+                           /* $helper = Mage::helper('cms');
+                           $processor = $helper->getBlockTemplateProcessor();
+                            $html=$processor->filter($value->getDescriptionInvited());
+                            echo $html;*/
+                        ?>
+                        <?php $type=$value->getDiscountType(); 
+                            if($type==1) $discount=Mage::helper('core')->formatPrice($value->getDiscountValue());
+                            else $discount=(float)$value->getDiscountValue().'%';
+                        ?>
+                        <?php if($value->getDiscountValue()>0) echo $this->__("You can get a <strong style='color:#511765'>".$discount."</strong> discount when purchasing products at our store on this occasion."); ?><br>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            <?php endif; ?>
+        </div>
+        <div class="offer-howto">
+            <div class="offer-question">
+                <h3><?php echo $this->__('How does this work?'); ?></h3>
+                <p><?php echo $this->__('Click onto the <strong>Start Shopping</strong> button below to browse a wide range of products you may enjoy.'); ?></p>
+            </div>
+            <div class="offer-contact">
+                <h3><?php echo $this->__('Question?'); ?></h3>
+                <p><?php echo $this->__('Contact us at <a href="mailto:enquiries@glovida.com ">enquiries@glovida.com </a>.'); ?></p>
+            </div>
+        </div>
+		<div class="action-shopping">
+        	<button class="button" onclick="setLocation('<?php echo $defaultLink; ?>');" style="float: none;"><span><span>Start Shopping</span></span></button>
+            
+			
+		</div>
+    </div>
+   
+</div>

@@ -1,0 +1,87 @@
+<?xml version="1.0"?>
+
+<config>
+    <menu>
+    <FME module="usersurvey">
+     <title>FME Extensions</title>
+        <sort_order>71</sort_order>               
+            <children>
+            <usersurvey module="usersurvey">
+                <title>User Survey</title>
+                    <sort_order>0</sort_order>               
+                <children>
+                    <items module="usersurvey">
+                        <title>Manage Questions</title>
+                        <sort_order>0</sort_order>
+                        <action>adminhtml/usersurvey</action>
+                    </items>
+                    <items_sets module="usersurvey">
+                        <title>Manage Questions Sets</title>
+                        <sort_order>1</sort_order>
+                        <action>adminhtml/questionset</action>
+                    </items_sets>
+                    <config translate="title">
+                        <title>Configuration</title>
+                        <sort_order>2</sort_order>
+                        <action>adminhtml/system_config/edit/section/usersurvey</action>
+                    </config>
+                </children>              
+            
+            </usersurvey>
+            </children>
+             </FME>
+        </menu>
+        <acl>
+            <resources>
+                <all>
+                    <title>Allow Everything</title>
+                </all>
+                <admin>
+                    <children>
+                        <FME_Usersurvey>
+                            <title>Usersurvey Module</title>
+                            <sort_order>10</sort_order>
+                        </FME_Usersurvey>
+                        <system>
+                            <children>
+                            <config>
+                                <children>
+                                <usersurvey>
+                                    <title>usersurvey Module Section</title>
+                                </usersurvey>
+                                </children>
+                            </config>
+                            </children>
+                        </system>
+                        <FME module="usersurvey">
+                                <title>FME Extensions</title>
+                                <sort_order>71</sort_order>               
+                                <children>
+                                        <usersurvey module="usersurvey">
+                                                <title>User Survey</title>
+                                                <sort_order>0</sort_order>               
+                                                <children>
+                                                        <items module="usersurvey">
+                                                            <title>Manage Questions</title>
+                                                            <sort_order>0</sort_order>
+                                                            <action>adminhtml/usersurvey</action>
+                                                        </items>
+                                                        <items_sets module="usersurvey">
+                                                            <title>Manage Questions Sets</title>
+                                                            <sort_order>1</sort_order>
+                                                            <action>adminhtml/questionset</action>
+                                                        </items_sets>
+                                                        <config translate="title">
+                                                            <title>Configuration</title>
+                                                            <sort_order>2</sort_order>
+                                                            <action>adminhtml/system_config/edit/section/usersurvey</action>
+                                                        </config>
+                                                </children>                                   
+                                        </usersurvey>
+                                </children>
+                        </FME>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+</config>

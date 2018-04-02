@@ -1,0 +1,312 @@
+<?php echo $this->getChildHtml('athlete_brands'); ?>
+<?php //echo $this->getChildHtml('bottomContainer'); ?> <!-- remarks slider on Brands Category page -->
+<div class="footer-container">
+	<div class="footer row clearfix">
+		<div class="grid_18">
+			<div class="footer-info clearfix">
+				<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId(Mage::helper('athlete')->getCfg('footer/cms_block'))->toHtml(); ?>
+			</div>
+			<?php echo $this->getChildHtml('athlete_footer_customer_service');?>
+		</div>
+	</div>
+</div>
+<?php $athleteHelper = Mage::helper('athlete'); ?>
+<?php if (!$athleteHelper->getCfg('footer/copyright_line')): ?>
+<div class="copyright-container">
+	<div class="row clearfix">
+		<div class="grid_18">
+			<div class="cc-icons"><?php echo $this->getChildHtml('athlete_cc_icons');?></div>
+			<address><?php echo $this->getCopyright() ?></address>
+		</div>
+	</div>
+</div>
+<?php endif; ?>
+
+<!-- ID -->
+<?php
+$page_type = Mage::app()->getFrontController()->getRequest()->getControllerName();
+if($page_type == 'index')
+{
+?>
+    <script type="text/javascript">
+	   var google_tag_params = {
+		   ecomm_pagetype: 'home',
+		   ecomm_prodid: '', 
+		   ecomm_totalvalue: 0
+	   };
+	</script>
+<?php
+}
+elseif($page_type == 'category')
+{
+?>
+	<script type="text/javascript">
+	   var google_tag_params = {
+		   ecomm_pagetype: 'category',
+		   ecomm_prodid: '',
+		   ecomm_totalvalue: 0
+	   };
+	</script>
+<?php
+}
+elseif($page_type == 'product')
+{
+	$product_id = Mage::registry('current_product')->getId();
+	//$product_id = Mage::getModel('catalog/product')->load($product_id)->getSku();
+	$product_price = Mage::registry('current_product')->getPrice();
+?>
+	<script type="text/javascript">
+		var google_tag_params = {
+			ecomm_pagetype: 'product',
+			ecomm_prodid: '<?php echo $product_id; ?>',
+			ecomm_totalvalue: parseFloat('<?php echo $product_price; ?>')
+		};
+	</script>
+<?php 
+}
+elseif($page_type == 'cart')
+{
+?>
+<script>
+var id = new Array();
+var price = new Array();
+</script>
+<?php
+	$cart = Mage::getModel('checkout/session')->getQuote();
+	foreach ($cart->getAllItems() as $item)
+	{
+		$product_id = $item->getProductId();
+		//$product_id = $item->getSku();
+		$product_id_all = $product_id_all.','.$product_id ;
+		$productPrice = $item->getProduct()->getPrice();
+		$productPrice_all = $productPrice_all.','.$productPrice;
+      ?>
+    <Script>
+    id.push('<?php echo $product_id; ?>');
+    price.push(parseFloat('<?php echo $productPrice; ?>'));
+    </Script>
+    <?php
+	}
+   $product_id_all=substr($product_id_all, 1);
+   $productPrice_all=substr($productPrice_all, 1);
+   
+?>
+	<script type="text/javascript">
+
+	var google_tag_params = {
+		ecomm_pagetype: 'cart',
+		ecomm_prodid: id,
+		ecomm_totalvalue: price
+	};
+	</script>
+<?php
+}
+elseif($page_type == 'onepage')
+{
+?>
+<script>
+var id = new Array();
+var price = new Array();
+</script>
+<?php
+	$cart = Mage::getModel('checkout/session')->getQuote();
+	foreach ($cart->getAllItems() as $item)
+	{
+		$product_id = $item->getProductId();
+		//$product_id = $item->getSku();
+		$product_id_all = $product_id_all.','.$product_id ;
+		$productPrice = $item->getProduct()->getPrice(); 
+		$productPrice_all = $productPrice_all.','.$productPrice;
+    ?>
+    <Script>
+    id.push('<?php echo $product_id; ?>');
+    price.push(parseFloat('<?php echo $productPrice; ?>'));
+    </Script>
+    <?php
+		
+	}
+	$product_id_all=substr($product_id_all, 1);
+	$productPrice_all=substr($productPrice_all, 1);
+?>
+	<script type="text/javascript">
+  
+		var google_tag_params = {
+			ecomm_pagetype: 'purchase',
+			ecomm_prodid: id,
+			ecomm_totalvalue: price
+		};
+	</script>
+<?php
+}else{
+?>
+<script type="text/javascript">
+		var google_tag_params = {
+			ecomm_pagetype: 'other',
+			ecomm_prodid: '',
+			ecomm_totalvalue: 0
+		};
+	</script>
+<?php
+}
+?>
+<script>
+    try {
+        ga('set', 'dimension1', window.google_tag_params.ecomm_prodid.toString());
+    } catch (e) {}
+    try {
+        ga('set', 'dimension2', window.google_tag_params.ecomm_pagetype.toString()); 
+    } catch (e) {}
+    try {
+        ga('set', 'dimension3', window.google_tag_params.ecomm_totalvalue.toString()); 
+    } catch (e) {}
+    ga('send', 'event', 'page', 'visit', window.google_tag_params.ecomm_pagetype.toString(), {
+        'nonInteraction': 1
+    });
+</script>
+<!-- ID -->
+<?php
+$page_type = Mage::app()->getFrontController()->getRequest()->getControllerName();
+if($page_type == 'index')
+{
+?>
+    <script type="text/javascript">
+	   var google_tag_params = {
+		   ecomm_pagetype: 'home',
+		   ecomm_prodid: '', 
+		   ecomm_totalvalue: 0
+	   };
+	</script>
+<?php
+}
+elseif($page_type == 'category')
+{
+?>
+	<script type="text/javascript">
+	   var google_tag_params = {
+		   ecomm_pagetype: 'category',
+		   ecomm_prodid: '',
+		   ecomm_totalvalue: 0
+	   };
+	</script>
+<?php
+}
+elseif($page_type == 'product')
+{
+	$product_id = Mage::registry('current_product')->getId();
+	//$product_id = Mage::getModel('catalog/product')->load($product_id)->getSku();
+	$product_price = Mage::registry('current_product')->getPrice();
+?>
+	<script type="text/javascript">
+		var google_tag_params = {
+			ecomm_pagetype: 'product',
+			ecomm_prodid: '<?php echo $product_id; ?>',
+			ecomm_totalvalue: parseFloat('<?php echo $product_price; ?>')
+		};
+	</script>
+<?php 
+}
+elseif($page_type == 'cart')
+{
+?>
+<script>
+var id = new Array();
+var price = new Array();
+</script>
+<?php
+	$cart = Mage::getModel('checkout/session')->getQuote();
+	foreach ($cart->getAllItems() as $item)
+	{
+		$product_id = $item->getProductId();
+		//$product_id = $item->getSku();
+		$product_id_all = $product_id_all.','.$product_id ;
+		$productPrice = $item->getProduct()->getPrice();
+		$productPrice_all = $productPrice_all.','.$productPrice;
+      ?>
+    <Script>
+    id.push('<?php echo $product_id; ?>');
+    price.push(parseFloat('<?php echo $productPrice; ?>'));
+    </Script>
+    <?php
+	}
+   $product_id_all=substr($product_id_all, 1);
+   $productPrice_all=substr($productPrice_all, 1);
+   
+?>
+	<script type="text/javascript">
+
+	var google_tag_params = {
+		ecomm_pagetype: 'cart',
+		ecomm_prodid: id,
+		ecomm_totalvalue: price
+	};
+	</script>
+<?php
+}
+elseif($page_type == 'onepage')
+{
+?>
+<script>
+var id = new Array();
+var price = new Array();
+</script>
+<?php
+	$cart = Mage::getModel('checkout/session')->getQuote();
+	foreach ($cart->getAllItems() as $item)
+	{
+		$product_id = $item->getProductId();
+		//$product_id = $item->getSku();
+		$product_id_all = $product_id_all.','.$product_id ;
+		$productPrice = $item->getProduct()->getPrice(); 
+		$productPrice_all = $productPrice_all.','.$productPrice;
+    ?>
+    <Script>
+    id.push('<?php echo $product_id; ?>');
+    price.push(parseFloat('<?php echo $productPrice; ?>'));
+    </Script>
+    <?php
+		
+	}
+	$product_id_all=substr($product_id_all, 1);
+	$productPrice_all=substr($productPrice_all, 1);
+?>
+	<script type="text/javascript">
+  
+		var google_tag_params = {
+			ecomm_pagetype: 'purchase',
+			ecomm_prodid: id,
+			ecomm_totalvalue: price
+		};
+	</script>
+<?php
+}else{
+?>
+<script type="text/javascript">
+		var google_tag_params = {
+			ecomm_pagetype: 'other',
+			ecomm_prodid: '',
+			ecomm_totalvalue: 0
+		};
+	</script>
+<?php
+}
+?>
+<script type="text/javascript">
+/* <![CDATA[ */
+var google_conversion_id = 878608688;
+var google_custom_params = window.google_tag_params;
+var google_remarketing_only = true;
+/* ]]> */
+</script>
+<script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js">
+</script>
+<noscript>
+<div style="display:inline;">
+<img height="1" width="1" style="border-style:none;" alt="" src="//googleads.g.doubleclick.net/pagead/viewthroughconversion/878608688/?guid=ON&amp;script=0"/>
+</div>
+</noscript>
+
+
+
+
+
+

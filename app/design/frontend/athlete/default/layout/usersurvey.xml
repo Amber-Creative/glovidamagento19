@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">    
+    <default>
+            <reference name="head">
+                 <action method="addCss"><stylesheet>css/usersurvey/style.css</stylesheet></action>
+            </reference>
+    </default>
+    <usersurvey_index_index>
+        <reference name="content">
+                    <block type="usersurvey/usersurvey" name="usersurvey" template="usersurvey/usersurvey.phtml"  />
+          </reference>
+    </usersurvey_index_index>
+    
+    <!--<customer_account_create translate="label">
+        <label>Customer Account Registration Form</label>-->
+        <!--reference name="head">
+                 
+                  <action method="addJs"><script>usersurvey/jquery-1.9.0.min.js</script></action>
+               
+                  
+        </reference-->
+    
+        <!--<remove name="right"/>
+        <remove name="left"/>
+    
+        <reference name="root">
+            <action method="setTemplate"><template>page/1column.phtml</template></action>
+        </reference>
+        <update handle="content" before="usersurvey"  />
+             
+            <block type="customer/form_register" name="customer_form_register" template="usersurvey/customer/form/register.phtml">
+                <block type="page/html_wrapper" name="customer.form.register.fields.before" as="form_fields_before" translate="label">
+                    
+                    <label>Form Fields Before</label>
+                </block>
+            </block>
+    
+    </customer_account_create>-->
+
+
+     <cms_index_index>
+        <reference name="head">
+          
+                <!--<action method="addCss"><stylesheet>css/usersurvey/jquery.fancybox.css</stylesheet></action>
+                <action method="addCss"><stylesheet>css/usersurvey/jquery.fancybox-buttons.css</stylesheet></action>
+                <action method="addCss"><stylesheet>css/usersurvey/jquery.fancybox-thumbs.css</stylesheet></action>
+                <action method="addCss"><stylesheet>css/usersurvey/jquery.fancybox-transitions.css</stylesheet></action>-->
+                <!--action method="addJs"><script>usersurvey/jquery-1.9.0.min.js</script></action-->
+                <!--<action method="addJs"><script>usersurvey/fancybox/jquery.fancybox.js</script></action>
+                <action method="addJs"><script>usersurvey/fancybox/helpers/jquery.fancybox-buttons.js</script></action>
+                <action method="addJs"><script>usersurvey/fancybox/helpers/jquery.fancybox-media.js</script></action>
+                <action method="addJs"><script>usersurvey/fancybox/helpers/jquery.fancybox-thumbs.js</script></action>
+                <action method="addJs"><script>usersurvey/fancybox/jquery.fancybox-transitions.js</script></action>-->
+        </reference>
+        <reference name="content">
+            <block type="usersurvey/usersurvey" name="usersurvey" template="usersurvey/cms_usersurvey.phtml" after="content" />
+        </reference>
+    </cms_index_index>
+    
+    
+</layout> 

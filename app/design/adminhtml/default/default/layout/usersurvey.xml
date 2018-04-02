@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+       <default>
+        <reference name="head">
+          <action method="addCss"><stylesheet>usersurvey/styles.css</stylesheet></action>
+       </reference>
+    </default>
+    <adminhtml_usersurvey_index>
+        <reference name="content">
+            <block type="usersurvey/adminhtml_usersurvey" name="usersurvey" />
+        </reference>
+    </adminhtml_usersurvey_index>
+       <adminhtml_questionset_index>
+        <reference name="content">
+            <block type="usersurvey/adminhtml_questionset" name="questionset" />
+        </reference>
+    </adminhtml_questionset_index>
+    
+    <adminhtml_questionset_questions>
+      <block type="core/text_list" name="root" output="toHtml">
+           <block type="usersurvey/adminhtml_questionset_edit_tab_questions" name="questions.grid"/>
+           <block type="adminhtml/widget_grid_serializer" name="grid_serializer">
+               <reference name="grid_serializer">
+                   <action method="initSerializerBlock">
+                       <grid_block_name>questions.grid</grid_block_name>
+                       <data_callback>getSelectedQuestions</data_callback>
+                       <hidden_input_name>links[related]</hidden_input_name>
+                       <reload_param_name>question_id</reload_param_name>
+                   </action>                 
+               </reference>
+           </block>
+       </block>
+   </adminhtml_questionset_questions>
+
+
+
+
+       <adminhtml_questionset_questionsgrid>    
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="usersurvey/adminhtml_questionset_edit_tab_questions" name="questions.grid"/>
+        </block>
+       </adminhtml_questionset_questionsgrid>
+</layout>

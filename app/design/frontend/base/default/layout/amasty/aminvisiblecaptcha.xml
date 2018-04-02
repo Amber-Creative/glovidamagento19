@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2017 Amasty (https://www.amasty.com)
+ * @package Amasty_InvisibleCaptcha
+ */
+-->
+<layout version="0.1.0">
+    <default>
+        <reference name="before_body_end">
+            <block type="aminvisiblecaptcha/captcha" name="captcha_script"/>
+            <block type="core/text" name="google_recaptcha_api">
+                <action method="setText">
+                    <text><![CDATA[<script src="https://www.google.com/recaptcha/api.js" async defer></script>]]></text>
+                </action>
+            </block>
+        </reference>
+    </default>
+</layout>

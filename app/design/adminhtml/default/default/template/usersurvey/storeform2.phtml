@@ -1,0 +1,77 @@
+
+  <?php
+
+     $set_id = Mage::helper('usersurvey')->getfieldname('set_qid',$this->getRequest()->getParam('id'),'set_id','questionset');
+    
+ 
+  ?>
+  <div class="entry-edit">
+    <div class="entry-edit-head">
+    <h4 class="icon-head head-edit-form fieldset-legend"><?php echo Mage::helper('usersurvey')->__('Locations and Stores') ?></h4>
+    <div class="form-buttons"></div>
+</div>
+    <div id="general" class="fieldset ">
+    <div class="hor-scroll">
+                        <table cellspacing="0" class="form-list">
+            <tbody>
+              <?php
+              $tbl2 = '';
+            $store_id          = 1; //your required store Id will go here 
+            $store_model       = Mage::getModel('core/store'); //store model
+          
+            $store_group_model = Mage::getModel('core/store_group'); //store group model             
+            $website_model     = Mage::getModel('core/website'); //website model             
+            $store_data        =  $store_model->load($store_id,'website_id'); //load store object
+            $group_id = $store_data->getGroupId(); //get store group id from the store
+             $website_id = $store_data->getWebsiteId(); 
+            $website_obj = $store_group_model->load($group_id)->getWebsite();
+             $website =  $website_obj->getName();
+          
+            $stores = $store_model->getCollection()->addWebsiteFilter($website_id); //get the stores from the existing website
+            foreach ($stores as $_store):
+                $store_ids[] = $website ." / ".$_store->getName();
+		$store_cods[] = $_store->getId();
+            endforeach;
+             
+      $arr = array_combine($store_cods,$store_ids);
+      $tr = '';
+            foreach($arr as $key1 => $value1)
+            {
+              $resource = Mage::getSingleton('core/resource');
+	       $read = $resource->getConnection('core_read');
+	       $tableName = $resource->getTableName('question_set_store');
+	        $set_id = Mage::helper('usersurvey')->getfieldname('set_qid',$this->getRequest()->getParam('id'),'set_id','questionset');
+	       
+	      
+	         $resulto[] = $read->fetchRow("select * from  ".$tableName." where set_qid = ".$set_id." and store_id = ".$key1);
+	      
+              $result = Mage::helper('usersurvey')->byfieldname($set_id,'question_set_store','set_qid',$key1);
+	       $sid = Mage::helper('usersurvey')->byfieldname('set_store_id','question_set_store','set_store_id',$key1);
+	    }
+	
+              ?><?php foreach($resulto as $rowr){
+      
+      ?>
+                <tr>
+        <td class="label"><label for="store_1"> <?php echo $rowr['store_type'] ?></label></td>
+    <td class="value">
+       <input type="hidden" name="stores_id[<?php echo $rowr['store_value'] ?>]" value="<?php echo $rowr['set_store_id'] ?>" />
+       <input type="hidden" name="stores[<?php echo $rowr['store_value'] ?>]" value="<?php echo $rowr['store_type'] ?>" />
+        <select tabindex="1"  class="required-entry select" name="design[<?php echo $key1 ?>]" id="store_1">
+	
+<option value="3" <?php if ($rowr['store_value']=='3'){ ?> selected="selected" <?php } ?>><?php echo Mage::helper('usersurvey')->__('Disable') ?></option>
+<option <?php if ($rowr['store_value']=='1'){ ?> selected="selected" <?php } ?> value="1">
+  <?php echo Mage::helper('usersurvey')->__('Registration') ?></option>
+<option value="2" <?php if ($rowr['store_value']=='2'){ ?> selected="selected" <?php } ?>><?php echo Mage::helper('usersurvey')->__('Frontend') ?></option>
+
+</select>
+<small></small>            </td>
+    </tr>
+          <?php } ?>    
+
+            </tbody>
+        </table>
+            </div>
+        </div>
+</div>
+

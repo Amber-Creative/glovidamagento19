@@ -1,0 +1,97 @@
+<?php 
+
+?>
+
+
+    <div class="entry-edit">
+    <div class="entry-edit-head">
+    
+    <h4 class="icon-head"><?php echo Mage::helper('usersurvey')->__('Question Results') ?></h4>
+
+</div><div>
+    <div id="addanswer_form" class="fieldset">
+    <div class="hor-scroll">
+<?php
+
+if( $this->getRequest()->getParam('id'))
+{
+  
+ 
+  
+		$news      = Mage::getModel('usersurvey/usersurvey')->load($this->getRequest()->getParam('id'));
+                $title     = $news->getTitle();
+                $type      = $news->getType();
+                 $resource = Mage::getSingleton('core/resource');
+                $read      = $resource->getConnection('core_read');
+		 		$adTable  = $resource->getTableName('fme_answers');	
+?>
+
+ <?php if($type == 1){ ?>
+ <div>
+ <div id="results_tab">
+<h2 class="legend"><?php echo $title; ?></h2>
+<div style="float:left;" class="my_ques">
+					
+				<div class="interview_dd_ques">
+                            <?php
+              
+		 $qry = "select * FROM ".$adTable." where  question_id =".$this->getRequest()->getParam('id').""; 
+                 $rest = $read->fetchAll($qry);
+                     $tno = Mage::helper('usersurvey')->gettotalvotes($this->getRequest()->getParam('id'));        
+                     foreach($rest as $row)       
+                            {
+                            ?>      
+                                  
+                                  <?php if($row['votes'] > 0){ ?>
+				  <div style="width:600px;" class="my_result">
+				    <?php }else{ ?>
+				    
+        			<div style="width:300px;" class="my_result">
+				    <?php } ?>
+                                <span><?php echo $row['answer_type'];?></span>
+                                <span style="float:right;"><?php echo $row['votes'];?> votes / <?php echo Mage::helper('usersurvey')->getvotes($row['votes'],$tno);?>%</span>
+                                </div>
+                                
+                                <?php } ?>
+				</div>
+				
+			
+	
+	</div>
+</div>
+ <?php } ?>
+<?php if($type == 2){ ?>
+<div style="float:left;" class="my_ques">
+					
+			
+		 <?php
+              
+		 $qry = "select * FROM ".$adTable." where  question_id =".$this->getRequest()->getParam('id').""; 
+                 $rest = $read->fetchAll($qry);
+                 $tno = Mage::helper('usersurvey')->gettotalvotes($this->getRequest()->getParam('id'));
+                     foreach($rest as $row)       
+                            {
+                            ?>
+				    
+			    <div style="float:left; position:relative; width:120px; "  class="show_img">
+				<img width="120" height="120" alt="11.png" src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA);?>usersurvey/<?php echo $row['answer_type']; ?>" />
+
+                <div style="display:block;z-index:1001;position:absolute;top:0px;left:0px;" id="result_num">
+					<span><?php echo $row['votes'];?> <?php echo Mage::helper('usersurvey')->__('votes') ?></span>
+				</div>
+		<div style="display:block;z-index:1001;position:absolute;bottom:0px;right:0px;" id="result_lower">
+				    <span><?php echo Mage::helper('usersurvey')->getvotes($row['votes'],$tno);?>%</span>
+		     </div>
+		</div>
+<?php } ?>
+			
+		
+			
+	
+			
+<?php } } ?>
+			</div>
+		     </div>
+		 </div>
+	     </div>
+	</div>

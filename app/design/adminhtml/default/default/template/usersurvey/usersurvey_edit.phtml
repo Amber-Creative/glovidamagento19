@@ -1,0 +1,94 @@
+<?php 
+
+?>
+<?php
+
+if( $this->getRequest()->getParam('id'))
+{
+  $result = Mage::registry('usersurvey_data')->getData();
+ 
+  
+  $news = Mage::getModel('usersurvey/usersurvey')->load($result['question_id']);
+                $title = $news->getQtitle();
+                $type = $news->getType();
+                
+?>
+<form action="<?php echo $this->getFormAction(); ?>" method="post" enctype="multipart/form-data"  id="edit_form">
+<div class="content-header">
+    <h3 class="icon-head head-adminhtml-jobs"><?php echo Mage::helper('usersurvey')->__('Update Answer') ?></h3>
+   
+    <p class="form-buttons">
+      <button style="" onclick="window.history.go(-1);" class="scalable back" type="button" title="Back" id="id_e6f47e"><span><span><span><?php echo Mage::helper('usersurvey')->__('Back') ?></span></span></span></button>
+      <button style="" onclick="editForm.submit();" class="scalable save" type="button" title="Save Answer" id="id_ed9"><span><span><span><?php echo Mage::helper('usersurvey')->__('Save Answer') ?></span></span></span></button></p>
+</div>
+  
+<div id="page:main-container">
+    <input type="hidden" name="form_key" value="<?php echo $this->getFormKey(); ?>" />
+     <input type="hidden" name="answer_id" value="<?php echo $this->getRequest()->getParam('id'); ?>" />
+    <input type="hidden" name="id" value="<?php echo $result['question_id']; ?>" />
+     <input type="hidden" name="edit" value="1" />
+      <input type="hidden" name="question_type" value="<?php echo $type; ?>" />  
+                            <div id="messages"></div>
+                <div class="entry-edit">
+    <div class="entry-edit-head">
+    <h4 class="icon-head head-edit-form fieldset-legend"><?php echo Mage::helper('usersurvey')->__('Question information') ?></h4>
+    <div class="form-buttons"></div>
+</div>
+    <div id="addanswer_form" class="fieldset ">
+    <div class="hor-scroll">
+                        <table cellspacing="0" class="form-list">
+            <tbody>
+                <tr>
+        <td class="label"><label for="title"><?php echo Mage::helper('usersurvey')->__('Question Title') ?> </label></td>
+    <td class="value">
+        <input type="text" class="input-text required-entry" readonly="1" disabled="disabled" value="<?php echo $title;?>" name="title" id="title">            </td>
+    </tr>
+<tr>
+        <td class="label"><label for="type"><?php echo Mage::helper('usersurvey')->__('Question Type')?></label></td>
+    <td class="value">
+        <select class=" select" readonly="1" disabled="disabled" name="type" id="type">
+<option value="1" <?php if($type == 1){ ?>  selected="selected" <?php } ?>><?php echo Mage::helper('usersurvey')->__('Dropdrown') ?></option>
+<option value="2" <?php if($type == 2){ ?>  selected="selected" <?php } ?>><?php echo Mage::helper('usersurvey')->__('Gallery') ?></option>
+</select>            </td>
+    </tr>
+ <?php if($type == 1){ ?>
+ <tr>
+        <td class="label"><label for="answer"><?php echo Mage::helper('usersurvey')->__('Answer') ?> <span class="required">*</span></label></td>
+    <td class="value">
+        <input type="text" class="required-entry input-text required-entry" value="<?php echo $result['answer_type'];?>" name="answer" id="answer">            </td>
+    </tr>
+<tr>
+ <?php } ?>
+<?php if($type == 2){ ?>
+<tr>
+        <td class="label"><label for="image"><?php echo Mage::helper('usersurvey')->__('Image') ?></label></td>
+    <td class="value">
+        <input type="file" class="input-file" value="" name="image" id="image">
+<small>'jpg', 'png' or 'gif'</small>
+   <img id="answ_image" src='<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA);?>usersurvey/<?php echo $result['answer_type']; ?>' width="150" height="120"/> 
+    
+    </td>
+    </tr>
+<?php } ?>
+<tr>
+        <td class="label"><label for="answer"><?php echo Mage::helper('usersurvey')->__('Answer Description') ?> <span class="required">*</span></label></td>
+    <td class="value">
+        <input type="text" class="required-entry input-text required-entry" value="<?php echo $result['description'];?>" name="answer_d" id="answer_d">            </td>
+    </tr>
+<tr>
+        <td class="label"><label for="sort_order"><?php echo Mage::helper('usersurvey')->__('Sort Order') ?> <span class="required">*</span></label></td>
+    <td class="value">
+        <input type="text" class="required-entry input-text validate-digits" value="<?php echo $result['sort_order'];?>" name="sort_order" id="sort_order">            </td>
+    </tr>
+            </tbody>
+        </table>
+            </div>
+        </div>
+</div>
+                        </div>
+</form>
+
+<script type="text/javascript">
+    editForm = new varienForm('edit_form', '');
+</script>
+<?php } ?>

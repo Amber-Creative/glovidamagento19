@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+ <config>
+     <modules>
+         <Aramex_Adminhtml>
+             <active>true</active>
+             <codePool>community</codePool>
+         </Aramex_Adminhtml>
+		
+     </modules>
+ </config>

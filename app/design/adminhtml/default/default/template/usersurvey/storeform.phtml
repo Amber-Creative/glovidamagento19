@@ -1,0 +1,65 @@
+
+  <?php
+
+     $set_id = Mage::helper('usersurvey')->getfieldname('set_qid',$this->getRequest()->getParam('id'),'set_id','questionset');
+    
+ 
+  ?>
+  <div class="entry-edit">
+    <div class="entry-edit-head">
+    <h4 class="icon-head head-edit-form fieldset-legend"><?php echo Mage::helper('usersurvey')->__('Locations')?></h4>
+    <div class="form-buttons"></div>
+</div>
+    <div id="general" class="fieldset ">
+    <div class="hor-scroll">
+                        <table cellspacing="0" class="form-list">
+            <tbody>
+              <?php
+        
+      if ($this->getRequest()->getParam('id') !='') {
+       
+      
+            $result = Mage::helper('usersurvey')->getvaluesset($this->getRequest()->getParam('id'));
+           
+          foreach($result as $key1)
+            {
+              $loca[]  = $key1['values'];
+            }
+           
+             /*  $set_id = Mage::helper('usersurvey')->getfieldname('set_qid',$this->getRequest()->getParam('id'),'set_id','questionset');
+              $result = Mage::helper('usersurvey')->byfieldname($set_id,'question_set_store','set_qid',$key1);*/
+           
+              ?>
+                <tr>
+        <td class="label"><label for="store_1"> <?php echo $value1 ?></label></td>
+    <td class="value">
+        <select tabindex="1"   class=" required-entry select multiselect" name="design[]" id="store_1[]" multiple>
+           
+                <option <?php if(in_array("1",$loca)){ echo 'selected="selected"';} ?> value="1">
+                  <?php echo Mage::helper('usersurvey')->__('Registration') ?></option>
+                <option <?php if(in_array("2",$loca)){ echo 'selected="selected"';} ?> value="2">
+                  <?php echo Mage::helper('usersurvey')->__('Frontend') ?></option>
+</select>
+<small></small>            </td>
+    </tr>
+           <?php }else{ 
+          
+            ?>  
+  <tr>
+        <td class="label"><label for="store_1"> <?php echo $value1 ?></label></td>
+    <td class="value">
+        <select tabindex="1"   class=" required-entry select multiselect" name="design[]" id="store_1[]" multiple>
+            
+                <option value="1"><?php echo Mage::helper('usersurvey')->__('Registration') ?></option>
+                <option value="2"><?php echo Mage::helper('usersurvey')->__('Frontend') ?></option>
+</select>
+<small></small>            </td>
+    </tr>
+           <?php } ?>   
+
+            </tbody>
+        </table>
+            </div>
+        </div>
+</div>
+

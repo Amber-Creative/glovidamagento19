@@ -1,0 +1,143 @@
+<?php
+//$_invoice = $this->getInvoice();
+$_order = $this->getOrder();
+$orderSymbolCode = Mage::app()->getLocale()->currency($_order->getOrderCurrencyCode())->getSymbol();
+$orderItems = $_order->getItemsCollection()->addAttributeToSelect('*')->addAttributeToFilter('product_type', array('eq'=>'simple'))->load();
+?>
+<?php if ($_order): ?>
+<table cellspacing="0" cellpadding="0" border="0" width="650" style="border:1px solid #EAEAEA;">
+	<thead>
+        <tr style="background-color: #EAEAEA;">
+            <th align="left" style="font-size:13px; padding:3px 9px;"><?php echo $this->__('Item') ?></th>
+            <th align="left" style="font-size:13px; padding:3px 9px;"><?php echo $this->__('Sku(s)') ?></th>
+            <th align="center" style="font-size:13px; padding:3px 9px;"><?php echo $this->__('Qty') ?></th>
+            <th align="right" style="font-size:13px; padding:3px 9px; text-align: right;"><?php echo $this->__('Subtotal') ?></th>
+        </tr>
+    </thead>
+	<tbody>
+		<?php $i = 0; ?>
+		<?php foreach($orderItems as $sItem): ?>			
+			<?php if(!$sItem->getParentItem()): ?>
+				<?php								
+				$_options = unserialize($sItem->getData('product_options'));							
+				$optionsToRender = '';
+				$bundleToRender = '';
+				if($_options)
+				{					
+					foreach ($_options['options'] as $option) 
+					{
+						if($option['label'] && $option['print_value'])
+						{
+							$optionsToRender .= '<br>' . $option['label'] . ': ' . $option['print_value'] . ';';
+						}																		
+					}
+					foreach ($_options['bundle_options'] as $option) 
+					{
+						$bundleToRender .= '<br>' . $option['label'];
+						foreach ($option['value'] as $opt)
+						{							
+							if($opt['title'] && $opt['qty'])
+							{
+								$bundleToRender .= '<br>' . $opt['title'] . ' QTY: ' . $opt['qty'] . '; Price: ' . $orderSymbolCode . $opt['price'];
+							}
+						}						
+					}
+					if($bundleToRender)
+					{
+						$bundleToRender = "<br>Bundle items:" . $bundleToRender;
+					}
+					if($optionsToRender)
+					{
+						$optionsToRender = "<br>Options:" . $optionsToRender;
+					}					
+				}
+				?>
+				
+				<tr style="background-color: <?php echo $i%2 ? '#F6F6F6' : '#fff'; ?>;">
+					<th align="left" style="font-size:11px; padding:3px 9px;"><strong><?php echo $sItem['name'] . $optionsToRender . $bundleToRender; ?></strong></th>
+					<th align="left" style="font-size:11px; padding:3px 9px;"><?php echo $sItem['sku']; ?></th>
+					<th align="center" style="font-size:11px; padding:3px 9px;"><?php echo round($sItem['qty_ordered'], 2); ?></th>
+					<th align="right" style="font-size:11px; padding:3px 9px; text-align: right;"><?php echo $orderSymbolCode . round($sItem['row_total'], 2); ?></th>
+				</tr>				
+			<?php endif; ?>
+			<?php $i++; ?>
+		<?php endforeach; ?>
+		<?php
+		$quoteId = $_order->getQuoteId();
+		$quote   = Mage::getModel('sales/quote')->load($quoteId);
+		$totals  = $quote->getTotals();
+		?>
+		<?php foreach ($totals as $_total): ?>
+			<?php
+			$totalLabel = '';
+			$grandtotalstyle='normal';
+			switch ($_total->getCode())
+			{
+				case 'subtotal':
+					$totalLabel = 'Subtotal';
+					$grandtotalstyle ='normal';
+					break;
+				case 'shipping':
+					$totalLabel = 'Shipping & Handling';
+					$grandtotalstyle ='normal';
+					break;
+				case 'deliveryschedule':
+					$totalLabel = 'Delivery Cost';
+					$grandtotalstyle ='normal';
+					break;
+				case 'grand_total':
+					$totalLabel = 'Grand Total';
+					$grandtotalstyle ='bold';					
+					break;
+			}
+			?>
+			<?php if($totalLabel): ?>
+				<tr style="background-color: #fff; ?>;">
+					<th colspan="3" align="right" style="font-size:13px; padding:3px 9px; text-align: right; font-weight: <?php echo $this->__($grandtotalstyle);?>;"><?php echo $this->__($totalLabel); ?></th>
+					<th align="right" style="font-size:13px; padding:3px 9px; text-align: right; font-weight: <?php echo $this->__($grandtotalstyle);?>;"><?php echo $orderSymbolCode . round($_total->getValue(), 2); ?></th>
+				</tr>
+			<?php endif; ?>
+		<?php endforeach; ?>
+	</tbody>	
+</table>
+<?php
+?>
+
+<?php endif; ?>
+<?php  if (Mage::getStoreConfig('deliveryschedule/general/delivery_schedule_enabled')==1){ 
+    $getInvoiceItems = $_order->getShippingDeliverySchedule();
+    if($getInvoiceItems && $getInvoiceItems != "") { 
+    ?><br />
+<table cellspacing="0" cellpadding="0" border="0" width="100%" style="border:1px solid #EAEAEA;">
+    <thead>
+        <tr>
+            <th align="left" style="font-size:13px; padding:3px 9px; background-color: #EAEAEA;"><strong><?php echo $this->__('Delivery Schedule Information'); ?></strong></th>
+        </tr>
+    </thead><tbody> <tr> <td colspan="4" align="left" style="padding:3px 9px">
+            <?php 
+            $deliveryDateItem = $_order->getShippingDeliveryDate();
+            $deliveryTypeItem = $_order->getShippingDeliverySchedule();
+            $deliveryTimeItem = $_order->getShippingDeliveryTime();
+            echo "<strong style='display:block;font-weight:bold;'>".$this->__('Shipping Delivery Schedule')." :- </strong>".$_order->getShippingDeliverySchedule();
+            if($deliveryDateItem != "")  { 
+            echo "</br><strong style='display:block;font-weight:bold;'>".$this->__('Shipping Delivery Date')." :- </strong></br>".date("M d Y",strtotime($deliveryDateItem))." ".$deliveryTimeItem;
+            }
+            else  { 
+                echo "N/A";
+            } ?>
+            <br /><strong style='display:block;font-weight:bold;'><?php echo $this->__('Comments : '); ?></strong> 
+            <?php 
+            if (Mage::getStoreConfig ( 'deliveryschedule/general/delivery_comment_enabled' ) == 1) {
+            $commentsItem = $_order->getShippingDeliveryComments(); 
+            if($commentsItem !="")   {
+                echo $commentsItem;
+                }
+                else   {
+                echo "N/A";
+                } 
+                } ?>
+            </td> </tr> </tbody></table>
+<?php } 
+}
+?>
+

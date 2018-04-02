@@ -1,0 +1,159 @@
+<?xml version="1.0"?>
+<config>
+
+	<sections>
+		<stocknotification translate="label" module="stocknotification">
+			<class>separator-top</class>
+			<label>Out of Stock Notification</label>
+			<tab>iwdall</tab>
+			<frontend_type>text</frontend_type>
+			<sort_order>231</sort_order>
+			<show_in_default>1</show_in_default>
+			<show_in_website>1</show_in_website>
+			<show_in_store>1</show_in_store>
+
+			<groups>
+				
+				<default>
+					<label>Default Configuration</label>
+					<sort_order>10</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<fields>
+
+						<info>
+							<label>Version</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>0</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<frontend_model>stocknotification/system_config_form_fieldset_extensions</frontend_model>
+						</info>
+                        <user_guide>
+                            <label>Documentation</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <frontend_model>stocknotification/system_config_form_fieldset_documentations</frontend_model>
+                        </user_guide>
+						<status>
+							<label>Enable Module?</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>10</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<validate>required-entry</validate>
+
+						</status>
+						
+						
+						<exclude>
+							<label>Exclude product types</label>
+							<frontend_type>multiselect</frontend_type>
+							<source_model>stocknotification/system_config_source_types</source_model>
+							<sort_order>20</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>							
+						</exclude>
+
+						<message>
+							<label>Notification Message </label>
+							<frontend_type>textarea</frontend_type>							
+							<sort_order>30</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>	
+						</message>
+                        <auto_verify_enable translate="label">
+                            <label>Automatic Verify Enable</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment><![CDATA[]]></comment>
+                        </auto_verify_enable>
+                        <!--<auto_verify_frequency translate="label">-->
+                            <!--<label>Automatic Verify Frequency</label>-->
+                            <!--<frontend_type>select</frontend_type>-->
+                            <!--<source_model>adminhtml/system_config_source_cron_frequency</source_model>-->
+                            <!--<backend_model>stocknotification/system_config_backend_cron</backend_model>-->
+                            <!--<sort_order>50</sort_order>-->
+                            <!--<show_in_default>1</show_in_default>-->
+                            <!--<show_in_website>0</show_in_website>-->
+                            <!--<show_in_store>0</show_in_store>-->
+                            <!--<comment><![CDATA[]]></comment>-->
+                        <!--</auto_verify_frequency>-->
+                        <!--<auto_verify_start_time translate="label">-->
+                            <!--<label>Automatic Verify Start Time</label>-->
+                            <!--<frontend_type>time</frontend_type>-->
+                            <!--<sort_order>60</sort_order>-->
+                            <!--<show_in_default>1</show_in_default>-->
+                            <!--<show_in_website>0</show_in_website>-->
+                            <!--<show_in_store>0</show_in_store>-->
+                            <!--<comment><![CDATA[]]></comment>-->
+                        <!--</auto_verify_start_time>-->
+                        <run_verify_manually translate="label">
+                            <label>Run Manually</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>70</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <frontend_model>stocknotification/system_config_form_fieldset_runverify</frontend_model>
+                            <comment><![CDATA[You can run verify process manually.]]></comment>
+                        </run_verify_manually>
+					</fields>
+				</default>
+
+				<email>
+					<label>Email Options</label>
+					<sort_order>20</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<fields>
+
+
+
+						<sender_email_identity translate="label">
+							<label>Email Sender</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_email_identity
+							</source_model>
+							<sort_order>10</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</sender_email_identity>
+
+						<email_template translate="label">
+							<label>Email Template</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_email_template
+							</source_model>
+							<sort_order>20</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</email_template>
+
+
+					</fields>
+				</email>
+
+
+
+			</groups>
+
+		</stocknotification>
+	</sections>
+</config>
