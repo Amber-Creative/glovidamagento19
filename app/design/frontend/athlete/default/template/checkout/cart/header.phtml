@@ -9,8 +9,10 @@ $_cartQty = $this->getSummaryCount(); if ( is_null($_cartQty) ) $_cartQty = 0;
 ?>
 <!-- cart BOF -->
 <div class="header-switch header-cart">
-	<a class="header-switch-trigger summary icon-<?php echo $athleteHelper->getCfg('header/search_icon', 'athlete_appearance'); ?>" href="<?php echo $this->getUrl('checkout/cart') ?>">
-		<?php echo '<span>'.$this->__('My Cart') . '</span><span class="qty">' . $_cartQty . '</span>'; ?>
+	
+	<img class="desktop-cartcl" src="http://35.198.225.109/media/wysiwyg/homeimages/cart-btn.jpg" alt="" /> <a class="header-switch-trigger summary icon-<?php echo $athleteHelper->getCfg('header/search_icon', 'athlete_appearance'); ?>" href="<?php echo $this->getUrl('checkout/cart') ?>">
+		<?php //echo '<span>' . $this->__('My Cart') . '</span><span class="qty">' . $_cartQty . '</span>'; ?>
+		<?php echo '<span class="qty">' . $_cartQty . '</span><span>' . $this->__('Cart') . '</span>'; ?>
 	</a>
 	<div class="header-dropdown">
 		<?php

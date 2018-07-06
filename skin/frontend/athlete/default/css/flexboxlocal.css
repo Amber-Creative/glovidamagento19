@@ -1,0 +1,134 @@
+/* flexbox */
+
+.flex-header-container-desktop {
+	display:flex;
+	align-items:center;
+}
+
+.flex-logo-container {
+	flex:1;
+}
+
+.flex-search-container {
+	flex:4;
+	align-items:center;
+}
+
+.flex-cart-header {
+
+}
+
+.flex-header-container-mobile {
+display:flex;
+flex-direction:column;
+}
+
+.flex-container-mobile-logoicons {
+display:flex;
+justify-content: center;
+position:relative;
+}
+
+.flex-coupon-container {
+	display:flex;
+	align-items:left;
+}
+
+.flex-checkout-login-container {
+	display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  margin-top:20px !important;
+}
+
+/* start custom css */
+.flex-header-container-desktop{
+padding:30px 0px 0px 0px;
+}
+.flex-profile-container {
+	position:relative !important;
+	/*padding-top:7px;*/
+	padding-top:1px !important;
+}
+.flex-profile-container > a,
+.flex-profile-container > div{
+	float:left !important;
+}
+.flex-profile-container > a{
+	margin-right: 5px !important;
+}
+/* end custom css */
+
+@media only screen and (max-width: 768px){
+	.flex-profile-container img{
+		height:20px !important;
+	}
+	.flex-profile-container > a {
+	    margin-right: 10px !important;
+	}
+}
+
+@media only screen and (max-width: 1023px){
+	.header .logo p{
+		text-align:center !important;
+	}
+	.header .logo img{
+		width: 90% !important;
+	}
+	.flex-container-mobile-logoicons{
+		box-shadow: 0px 7px 10px #ccc !important;
+	    padding-bottom: 15px !important;
+	}
+	#toplinksida .flex-profile-container .header-cart .summary > span {
+	    display: inline !important;
+	}
+	#toplinksida .flex-profile-container .header-cart .summary{
+		padding-top:10px !important;
+		display:none !important;
+	}
+	#toplinksida .flex-profile-container .header-cart > img {
+		float:left !important;
+		position:absolute !important;
+	}
+	#toplinksida .flex-profile-container .header-cart .header-dropdown{
+		top:60px !important;
+	}
+	.flex-profile-container{
+		position: absolute !important;
+		float: right !important;
+    	right: 2% !important;
+	}
+	.flex-header-container-mobile{
+		padding-top:15px !important;
+	}
+	.flex-profile-container > a{
+		margin-right: 5px !important;
+		position: relative !important;
+		top:-6px !important;
+		text-align: center !important;
+	}
+	.header .form-search button.button span span{
+	    color: transparent;
+	    text-indent: -1000em;
+	    background: url(../images/athlete/icon_search.png) 2px 2px no-repeat !important;
+	    /*background-image: url("http://35.198.225.109/skin/frontend/athlete/default/images/athlete/icon_search.png") 2px 2px no-repeat !important;
+	    background-size: 30px 30px !important;*/
+	}
+	.header-nav-wide{
+		border-bottom:none !important;
+	}
+}
+
+.flex-header-container-desktop{
+	display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1 100%;
+  /*-webkit-flex-flow: row wrap;
+  -ms-flex-flow: row wrap;
+  flex-flow: row wrap;*/
+}

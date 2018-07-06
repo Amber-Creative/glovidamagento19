@@ -35,7 +35,54 @@
 <?php if ($this->canApplyMsrp()): ?>
     <div class="cart-msrp-totals"><?php echo $this->__('ORDER TOTAL WILL BE DISPLAYED BEFORE YOU SUBMIT THE ORDER'); ?></div>
 <?php else: ?>
-    <table id="shopping-cart-totals-table">
+	<div class="cart-summary-title">
+		<h2>Summary</h2>
+	</div>
+	<div class="saveclss" id="saveclassid"><span class="savepricecustm">Savings off RSP (before promo code/reward points):</span>
+    <span class="saving_session_price"><?php
+	echo "SGD$ ".number_format($finaltot, 2);
+    //echo money_format("The price is %i", $finaltot);//echo $_SESSION["saving_session_price"]; ?>
+    </span></div>
+	
+	
+	<div class="flex-coupon-container"> <!-- Enter discount code here -->
+		<form id="discount-coupon-form" action="https://www.glovida.com/checkout/cart/couponPost/" method="post" style="text-align: left;">
+    		
+        		
+        	
+            	<br></br>
+            	<label for="coupon_code" style="text-align: left;">Enter coupon code</label>
+            	<input type="hidden" name="remove" id="remove-coupone" value="0" />
+            <div class="input-box" style="padding-bottom: 20px;">
+                <input class="input-text" id="coupon_code" name="coupon_code" value="" />
+            </div>
+            
+            <button type="button" title="Apply Coupon" class="btn" onclick="discountForm.submit(false)" value="Apply Coupon"><span><span>Apply</span></span></button>
+                
+            <button type="button" title="Cancel Coupon" class="btn" onclick="discountForm.submit(true)" value="Cancel Coupon"><span><span>Cancel</span></span></button>
+            
+        	
+    	
+		</form>
+		<script type="text/javascript">
+			//<![CDATA[
+			var discountForm = new VarienForm('discount-coupon-form');
+			discountForm.submit = function (isRemove) {
+    		if (isRemove) {
+        		$('coupon_code').removeClassName('required-entry');
+        		$('remove-coupone').value = "1";
+    		} else {
+        	$('coupon_code').addClassName('required-entry');
+        	$('remove-coupone').value = "0";
+    		}
+    		return VarienForm.prototype.submit.bind(discountForm)();
+		}
+		//]]>
+		</script>
+	</div>
+
+	
+    <table id="shopping-cart-totals-table" class="shopping-cart-totals-tableid">
         <col />
         <col width="1" />
         <tfoot>
@@ -67,12 +114,6 @@
 			}  			
 			$finaltot;			
     ?>
-	
-	<div class="saveclss" style="text-align: right; font-size: 1.5em; color: #414042; font-weight: bold; text-transform: uppercase;"><span class="savepricecustm">Savings off RSP (before promo code or reward points):</span>
-    <span class="saving_session_price"><?php
-	echo "SGD$ ".number_format($finaltot, 2);
-    //echo money_format("The price is %i", $finaltot);//echo $_SESSION["saving_session_price"]; ?>
-    </span></div>
         </tbody>
     </table>
 <?php endif; ?>

@@ -63,7 +63,7 @@ $_specialPriceStoreLabel = $this->__('Special Price:');
     <?php $_weeeTaxAmount = $_store->roundPrice($_store->convertPrice($_weeeTaxAmount)); ?>
     <?php $_weeeTaxAmountInclTaxes = $_store->roundPrice($_store->convertPrice($_weeeTaxAmountInclTaxes)); ?>
 
-    <div class="price-box">
+    <div class="price-box" id="price-boxid1">
     <?php $_convertedPrice = $_store->roundPrice($_store->convertPrice($_product->getPrice())); ?>
     <?php $_price = $_taxHelper->getPrice($_product, $_convertedPrice); ?>
     <?php $_regularPrice = $_taxHelper->getPrice($_product, $_convertedPrice, $_simplePricesTax); ?>
@@ -495,7 +495,7 @@ $_specialPriceStoreLabel = $this->__('Special Price:');
 <?php if ($_product->getMsrp()): ?>
 	<?php $_msrpPrice = $this->helper('core')->currency($_product->getMsrp(),true,true); ?>
     <?php $_newmsrp = $this->helper('core')->currency($_product->getMsrp(),false,false); ?>
-	<div class="price-box">
+	<div class="price-box" id="price-boxid2">
 	<p class="old-price">
 	<span class="label"><?php echo $this->__('vs. Retail Price:') ?></span>
 	<span class="price" id="old-product-price-<?php echo $_product->getId() ?><?php echo $this->getIdSuffix() ?>"><?php echo $_msrpPrice ?></span>

@@ -10,37 +10,116 @@
  * http://opensource.org/licenses/afl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
+ * to license@magentocommerce.com so we can send you a copy immediately.
  *
  * DISCLAIMER
  *
  * Do not edit or add to this file if you wish to upgrade Magento to newer
  * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
+ * needs please refer to http://www.magentocommerce.com for more information.
  *
  * @category    design
  * @package     base_default
- * @copyright   Copyright (c) 2006-2016 X.commerce, Inc. and affiliates (http://www.magento.com)
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 /**
  * @var Mage_Page_Block_Html_Header $this
+ * 
+ * This file contains logo, navigation, search bar at the top
  */
 ?>
-<div class="header-container">
-    <div class="header">
-        <?php if ($this->getIsHomePage()):?>
-        <h1 class="logo"><strong><?php echo $this->getLogoAlt() ?></strong><a href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>" class="logo"><img src="<?php echo $this->getLogoSrc() ?>" alt="<?php echo $this->getLogoAlt() ?>" /></a></h1>
-        <?php else:?>
-        <a href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>" class="logo"><strong><?php echo $this->getLogoAlt() ?></strong><img src="<?php echo $this->getLogoSrc() ?>" alt="<?php echo $this->getLogoAlt() ?>" /></a>
-        <?php endif?>
-        <div class="quick-access">
-            <?php echo $this->getChildHtml('topSearch') ?>
-            <p class="welcome-msg"><?php echo $this->getChildHtml('welcome') ?> <?php echo $this->getAdditionalHtml() ?></p>
-            <?php echo $this->getChildHtml('topLinks') ?>
-            <?php echo $this->getChildHtml('store_language') ?>
-        </div>
-        <?php echo $this->getChildHtml('topContainer'); ?>
-    </div>
-</div>
-<?php echo $this->getChildHtml('topMenu') ?>
+
+<?php
+$athleteHelper = Mage::helper('athlete');
+$headerCss = 'header-container ' . $athleteHelper->getCfg('header/header_mobile') .' '. $athleteHelper->getCfg('header/header_type');
+$menu_position = $athleteHelper->getCfg('header/menu');
+if (empty($menu_position)) $menu_position = 1;
+?>
+	
+	<div class="<?php echo $headerCss; ?> ">
+		<div class="header header-<?php echo $menu_position; ?> row">
+			<div class="grid_18">
+				<div id="toplinksidb" class="flex-header-container-desktop"> <!-- Desktop Look -->
+					
+						<!-- Load Logo -->
+						<div class="flex-logo-container">
+									<a href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>" class="logo">
+									<?php echo $this->getChildHtml('theme_logo', false) ?>
+									</a>
+						</div>
+					
+					
+					<?php
+					$language = $this->getChildHtml('store_language');
+					$currency = $this->getChildHtml('currencyTop');
+					$_css_class = '';
+					if ((!empty($language) && empty($currency)) || (empty($language) && !empty($currency))) {
+						$_css_class = 'one-switch';
+					}
+					?>
+
+							
+							<div class="flex-search-container <?php echo($athleteHelper->getCfg('header/search') ? 'search-visible' : '') ?>">
+								<?php echo $this->getChildHtml('topSearch') ?>
+							</div> <!-- end nav-search container -->	
+								
+								<div class="flex-profile-container">
+									<a href="https://www.glovida.com/customer/account/login/"><img src="https://www.glovida.com/media/wysiwyg/homeimages/Glovida_UserIcon_100px(h).svg" height="25"></a>
+									<!--<a href="http://35.198.225.109/customer/account/login/"><img src="http://35.198.225.109/media/wysiwyg/homeimages/Glovida_UserIcon.png"></a>-->
+								</div>
+								<?php echo $language . $currency . $this->getChildHtml('cart_top') ?>
+								
+
+				</div>
+				
+				<div id="toplinksida" class="flex-header-container-mobile"> <!-- Mobile Look -->
+					
+						<!-- Load Logo -->
+						<div class="flex-container-mobile-logoicons">
+						
+						
+						
+						<div class="flex-logo-mobile-container">
+									<a href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>" class="logo">
+									<?php echo $this->getChildHtml('theme_logo', false) ?>
+									</a>
+						</div>
+					
+						
+							
+						<div class="flex-profile-container">
+
+							<?php
+								$language = $this->getChildHtml('store_language');
+								$currency = $this->getChildHtml('currencyTop');
+								$_css_class = '';
+								if ((!empty($language) && empty($currency)) || (empty($language) && !empty($currency))) {
+								$_css_class = 'one-switch';
+								}
+							?>
+
+							<!--<a href="http://35.198.225.109/customer/account/login/"><img src="http://35.198.225.109/media/wysiwyg/homeimages/Glovida_UserIcon.png"></a>-->
+							<a href="https://www.glovida.com/customer/account/login/"><img src="https://www.glovida.com/media/wysiwyg/homeimages/Glovida_UserIcon_100px(h).svg" height="25"></a>
+							
+
+							<?php echo $language . $currency . $this->getChildHtml('cart_top') ?>
+						</div>
+						
+					</div>		
+							
+					<div id="nav-searchid" class="nav-search-container  <?php echo($athleteHelper->getCfg('header/search') ? 'search-visible' : '') ?>">
+						<?php echo $this->getChildHtml('topSearch') ?>
+					</div>
+
+				
+				</div>
+				<?php if ($menu_position == 2) : ?> 
+					<!-- Menu -->
+					<div class="header-nav-wide"><?php echo $this->getChildHtml('topMenu') ?></div>
+				<?php endif ?>
+			</div>
+		</div>
+	</div>
+<?php echo $this->getChildHtml('topContainer'); ?>
+<?php echo $this->getChildHtml('athlete_slideshow'); ?>

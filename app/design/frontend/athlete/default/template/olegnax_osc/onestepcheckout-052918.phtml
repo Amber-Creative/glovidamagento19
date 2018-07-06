@@ -1,0 +1,486 @@
+<div id="olegnax-osc-area" class="responsive-<?php echo Mage::helper('olegnax_osc/config')->enabledResponsive() ? 'on' : 'off' ?> <?php echo Mage::helper('olegnax_osc/config')->countColumns() ?> skin skin-<?php echo Mage::helper('olegnax_osc/config')->getCurrentSkin() ?>">
+
+    <div id="olegnax-osc-background" class="olegnax-osc-popup-overlay" style="display:none"></div>
+
+    <div class="olegnax-osc-block<?php if (Mage::getStoreConfig('olegnax_appearance/title_app/title_icons') == 'disabled') {
+        echo ' olegnax-osc-title-icon-disabled';
+    }
+    ?>">
+        <div class="olegnax-osc-top<?php echo$this->getChildHtml('auth') ? ' olegnax-osc-login-off' : ' olegnax-osc-login-on' ?>">
+            <div class="olegnax-osc-page-title">
+                <h2><?php echo $this->getTitle();?></h2>
+                <!--<div class="olegnax-osc-description"><?php //echo $this->getDescription();?></div>-->
+                <div class="olegnax-osc-description">Login for a speedy checkout OR continue as a new member below!</div>
+            <!-- </div> old closing tag -->
+            
+
+            <?php if ($this->canShowAuth()): ?>
+            <div class="flex-checkout-login-container">
+                <!--<h3>Login for a speedy checkout!</h3>-->
+                <!--<div class="login-button"><span><?php //echo $this->__('Already registered? Click here to login'); ?></span></div>-->
+                
+				<?php echo $this->getLayout()->createBlock("fblogin/fblogin")->setTemplate("fblogin/bt_fblogin.phtml")->toHtml(); ?>
+                <div id="olegnax-osc-loginform">
+                    <div id="olegnax-osc-loginform-container">
+                        <div id="olegnax-osc-loginform-dummy-accept" class="no-display"></div>
+                        <form id="olegnax-osc-login-form" action="<?php echo $this->loginAjaxURL();?>" method="post">
+                            <div class="olegnax-osc-icon olegnax-osc-icon-login">
+                                <?php echo $this->__('Login') ?>
+                                <a href="javascript:void(0);" title="Close" class="olegnax-osc-btn-close"></a>
+                            </div>
+                            <div class="olegnax-osc-indent">								
+                                <div class="error-placeholer"></div>
+                                <div class="form-list">
+                                    <div class="olegnax-osc-auth-form-block">
+                                        <label for="login-email" class="required"><em>*</em><?php echo $this->__('Email Address') ?></label>
+                                        <div class="input-box">
+                                            <input type="text" class="input-text required-entry validate-email" id="login-email" name="login[username]" placeholder="<?php echo $this->__('Email Address') ?>" value="<?php echo $this->getUsername() ?>" />
+                                        </div>
+                                    </div>
+                                    <div class="olegnax-osc-auth-form-block">
+                                        <label for="login-password" class="required"><em>*</em><?php echo $this->__('Password') ?></label>
+                                        <div class="input-box">
+                                            <input type="password" class="input-text required-entry validate-password" id="login-password" placeholder="<?php echo $this->__('Password') ?>" name="login[password]" />
+                                        </div>
+                                    </div>
+                                    <div class="olegnax-osc-auth-form-block">
+                                        <button type="submit" class="button" id="olegnax-osc-login-submit-btn">
+                                            <?php echo $this->__('Login') ?>
+                                        </button>
+                                    </div>
+                                    <div class="olegnax-osc-auth-form-block">
+                                        <a id="olegnax-osc-login-forgot-link" href="javascript:void(0);"><?php echo $this->__('Forgot your password?') ?></a>
+                                    </div>                        
+                                </div>
+                            </div>							
+                        </form>
+                        <form id="olegnax-osc-forgot-password-form" action="<?php echo $this->forgotPasswordAjaxURL() ?>" method="post" class="no-display">
+                            <div class="olegnax-osc-icon olegnax-osc-icon-login">
+                                <?php echo $this->__('Forgot your password?') ?>
+                                <a href="javascript:void(0);" title="Close" class="olegnax-osc-btn-close"></a>
+                            </div>
+                            <div class="olegnax-osc-indent">
+                                <div class="error-placeholer"></div>
+                                <div class="form-list">
+                                    <p><?php echo $this->__('Please enter your email below and we will send you a new password.');?></p>
+                                    <div class="olegnax-osc-auth-form-block">
+                                        <label for="forgot-password-email" class="required"><em>*</em><?php echo $this->__('Email Address') ?></label>
+                                        <div class="input-box">
+                                            <input type="text" class="input-text required-entry validate-email" id="forgot-password-email" placeholder="<?php echo $this->__('Email Address') ?>" name="email" value="<?php echo $this->getUsername() ?>" />
+                                        </div>
+                                    </div>
+                                    <div class="olegnax-osc-auth-form-block">
+                                        <button type="submit" class="button" id="olegnax-osc-forgot-password-submit-btn">
+                                            <?php echo $this->__('send password') ?>
+                                        </button>
+                                    </div>
+                                    <div class="olegnax-osc-auth-form-block">
+                                        <a class="olegnax-osc-forgot-password-back" href="javascript:void(0);"><?php echo $this->__('back to login') ?></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <div id="olegnax-osc-forgot-password-success" class="no-display">
+                            <div class="olegnax-osc-icon olegnax-osc-icon-login">
+                                <?php echo $this->__('Forgot your password?') ?>
+                                <a href="javascript:void(0);" title="Close" class="olegnax-osc-btn-close"></a>
+                            </div>
+                            <div class="olegnax-osc-indent">
+                                <p><?php echo $this->__('If there is an account associated with email address you will receive an email with a link to reset your password.');?></p>
+                                <p><?php echo $this->__('Click the link below to return to login.');?></p>
+                                <div class="olegnax-osc-auth-form-block">
+                                    <a class="olegnax-osc-forgot-password-back" href="javascript:void(0);"><?php echo $this->__('Return to Login') ?></a>
+                                </div>
+                            </div>
+                        </div>        
+                    </div>
+                </div>
+
+                <!--<div class="login-button"><span><?php //echo $this->__('Member Login'); ?></span></div>-->
+
+                <div class="login-button olegnax-osc-auth-form-block">
+                                        <button type="submit" class="button" id="olegnax-osc-login-submit-btn">
+                                            <?php echo $this->__('Member Login') ?>
+                                        </button>
+                                    </div>
+            </div>
+
+            <script type="text/javascript">
+                var olegnaxOSCLoginBlock = new OnestepcheckoutLogin({
+                    openPopupSelector: '.olegnax-osc-login-block .login-button',
+                    containerSelector: '#olegnax-osc-loginform-container',
+                    forgotPasswordLinkSelector: '#olegnax-osc-login-forgot-link',
+                    backToLoginLinkSelector: '.olegnax-osc-forgot-password-back',
+                    loginFormSelector: '#olegnax-osc-login-form',
+                    forgotPasswordFormSelector: '#olegnax-osc-forgot-password-form',
+                    forgotPasswordSuccessBlockSelector: '#olegnax-osc-forgot-password-success',
+                    fbButtonContainerSelector: '#olegnax-osc-login-form-block-fbi',        
+                    errorMessageBoxCssClass: 'olegnax-osc-error-msg ',
+                    overlayConfig: {
+                        '48px': 'olegnax-osc-background olegnax-osc-loader olegnax-osc-loader-48',
+                        '24px': 'olegnax-osc-background olegnax-osc-loader olegnax-osc-loader-24',
+                        '16px': 'olegnax-osc-background olegnax-osc-loader olegnax-osc-loader-16'
+                    },
+                    jsErrorMsg: <?php echo Zend_Json::encode($this->__("Oops something's wrong")); ?>,
+                    popup: {
+                        overlaySelector: "#olegnax-osc-background",
+                        containerSelector: "#olegnax-osc-loginform",
+                        contentContainerSelector: "#olegnax-osc-loginform-container",
+                        acceptContainerSelector: "#olegnax-osc-loginform-dummy-accept",
+                        buttons: {
+                            accept: {
+                                selector: "#olegnax-osc-forgot-password-form .olegnax-osc-btn-close",
+                                enabled: true
+                            },
+                            close: {
+                                selector: "#olegnax-osc-loginform-container .olegnax-osc-btn-close",
+                                enabled: true
+                            },
+                            close2: {
+                                selector: "#olegnax-osc-forgot-password-success .olegnax-osc-btn-close",
+                                enabled: true
+                            }
+                        }
+                    }
+                });
+            </script>
+            <?php endif;?>
+            </div> <!-- new closing tag -->
+
+        </div>
+    </div>
+    <div class="olegnax-osc-block olegnax-osc-title-<?php 
+        echo Mage::getStoreConfig('olegnax_appearance/title_app/title_align');
+        if (Mage::getStoreConfig('olegnax_appearance/title_app/title_icon_pos')) echo ' olegnax-osc-title-icon-right';       
+        if (Mage::getStoreConfig('olegnax_appearance/title_app/title_icons') == 'disabled') {
+              echo ' olegnax-osc-title-icon-disabled';
+        };
+        if (Mage::getStoreConfig('olegnax_appearance/content_app/content_blocks_border_width')!= '0') {
+              echo ' olegnax-osc-content_blocks_border';
+        };                                 
+    ?>" id="olegnax-osc-block-container">
+        <form id="olegnax-osc-block-form" method="post" action="#">
+            <?php $blocks = array() ?>
+            <?php ob_start() ?>            
+                <?php echo $this->getChildHtml('billing_address'); ?>            
+            <?php $blocks['billing_address'] = ob_get_contents(); ob_end_clean() ?>
+            <?php ob_start() ?>            
+                <?php echo $this->getChildHtml('shipping_address'); ?>            
+            <?php $blocks['shipping_address'] = ob_get_contents(); ob_end_clean() ?>
+            <?php ob_start() ?>
+            <div id="olegnax-osc-payment-method" class="olegnax-osc-block-wrap">
+                <?php echo $this->getChildHtml('paymentmethod') ?>
+            </div>
+            <?php $blocks['payment'] = ob_get_contents(); ob_end_clean() ?>
+            <?php ob_start() ?>
+            
+                <?php echo $this->getChildHtml('shippingmethod') ?>
+            
+            <?php $blocks['shipping'] = ob_get_contents(); ob_end_clean() ?>
+            <?php ob_start() ?>
+
+                <?php echo $this->getChildHtml('gift_card') ?>
+
+            <?php $blocks['giftcard'] = ob_get_contents(); ob_end_clean() ?>
+            <?php ob_start() ?>
+            <div id="olegnax-osc-order-review"  class="olegnax-osc-block-wrap">
+                <?php $blockNumberClass = (!is_null($this->blockNumber(false)))?"olegnax-osc-icon-v":"";?>
+                <h3 class="olegnax-osc-icon <?php echo $blockNumberClass;?>"><?php echo $this->__('Order Review'); ?></h3>
+                <div class="olegnax-osc-block-content">
+                    <div id="olegnax-osc-order-review-cart-wrap"><?php echo $this->getChildHtml('review.cart'); ?></div>
+                    <div id="olegnax-osc-review-coupon"><?php echo $this->getChildHtml('review.coupon'); ?></div>
+                    <div id="olegnax-osc-order-review-enterprise-giftcard-wrap"><?php echo $this->getChildHtml('review.enterprise.giftcard'); ?></div>
+                    <div id="olegnax-osc-order-review-enterprise-storecredit-wrap"><?php echo $this->getChildHtml('review.enterprise.storecredit'); ?></div>
+                    <div id="olegnax-osc-order-review-enterprise-points-wrap"><?php echo $this->getChildHtml('review.enterprise.points'); ?></div>                             
+                    <div id="olegnax-osc-order-review-comments-wrap"><?php echo $this->getChildHtml('review.comments'); ?></div>
+                    
+                    <?php //echo $this->getChildHtml('review.newsletter'); ?>
+                    
+                </div>
+            </div>
+            <?php $blocks['review'] = ob_get_contents(); ob_end_clean() ?>
+            <?php ob_start() ?>
+            <div class="olegnax-osc-total">
+<?php
+			$cart = Mage::getModel('checkout/cart')->getQuote();
+			foreach ($cart->getAllVisibleItems() as $item) {
+			
+				$num = $num +1;
+				$_pricegetMsrp=0;
+				$productPrice_orignal_price = 0;
+				$discountedprice=0;
+				$saving = 0;
+			
+				$_pricegetMsrp = $item->getProduct()->getMsrp();
+				$productPrice_orignal_price=$item->getProduct()->getPrice();
+				$discountedprice=$item->getPrice(); 
+				
+				if ($_pricegetMsrp > 0 ){
+					$todatlsaving=$_pricegetMsrp-$productPrice_orignal_price;
+					$saving = $todatlsaving * $item->getQty();
+				}
+			
+				$finaltot+= $saving;
+															
+			}  			
+			$finaltot;
+    ?>
+    <div class="saveclss" style="text-align: center; font-size: 1.4em; color: #511765; font-weight: bold; text-transform: uppercase; padding: 0px 20px 20px;"><span class="savepricecustm">Savings off RSP (before promo code or reward points):</span><br>
+    <span class="saving_session_price"><?php
+	echo "SGD$ ".number_format($finaltot, 2); ?>
+    </span>
+    <hr style="border-bottom: 1px solid #c2c3c5; padding: 10px;" /></div>
+                <div id="olegnax-osc-order-review-cart-totals"><?php echo $this->getChildHtml('review.totals'); ?></div>
+                <?php //echo $this->getChildHtml('review.terms'); ?>
+                    <div id="olegnax-osc-review-terms">
+    <ol>
+            <li style="visibility:hidden">
+            <input type="checkbox" name="olegnax_osc_agreement[1]"
+                   id="olegnax-osc-review-terms-agreement-1"
+                   class="checkbox olegnax-osc-agreement-checkbox-1" value="1" class="checkbox" checked/>
+                        <label for="olegnax-osc-review-terms-agreement-1">I read and agree to <a href="javascript:void(0)" title="TERMS OF USE  and PRIVACY POLICY">TERMS OF USE  and PRIVACY POLICY</a></label>
+            <div style="display:none" class="olegnax-osc-review-terms-description-container">
+                                    <div class="std "><p><strong>PLEASE READ THIS PRIVACY STATEMENT CAREFULLY. BY ACCESSING OR USING OUR WEBSITE, YOU ACKNOWLEDGE THAT YOU HAVE READ, UNDERSTAND, AND AGREE TO BE BOUND TO ALL THE TERMS OF THIS PRIVACY STATEMENT AND OUR WEBSITE TERMS OF USE. IF YOU DO NOT AGREE TO THESE TERMS, EXIT THIS PAGE AND DO NOT ACCESS OR USE THE WEBSITE.
+</strong></p>
+
+<h2>Collection and use of personal data</h2>
+<ol>
+<li>We will only use or disclose your personal data with your consent or as authorised by applicable laws and regulations. The personal data collected may include:
+<ul>
+<li>Name</li>
+<li>NRIC / FIN / Passport Number</li>
+<li>Date of Birth</li>
+<li>Gender</li>
+<li>Home Address</li>
+<li>Delivery Address</li>
+<li>Email</li>
+<li>Telephone / Mobile Number</li>
+</ul>
+</li>
+<li>By creating an online account with us (whether directly or on your behalf), you consent to our collection, use and disclosure of your personal data for any or all of the purposes specified below:
+<ul>
+<li>Administer your online account with us</li>
+<li>Provide the products or services purchased from us online (and for all other matters relating to such purchase)</li>
+<li>Verify and carry out financial transactions in relation to payments made for online purchases from us</li>
+<li>Managing, investigating or responding to feedback, request, claims or complaints provided or made by you</li>
+<li>Audit the downloading of data from our site</li>
+<li>Improve or customise the layout or content of our site</li>
+<li>Identify visitors to our site</li>
+</ul>
+</li>
+<li>With your consent, we may collect, use and disclose your personal data for any or all of the purposes specified below:
+<ul>
+<li>Deliver marketing or promotional materials relating to our products, services or special offers (and other information which you have requested)</li>
+<li>Inform you of updates to this site</li>
+<li>Provide information or services relating to our products, promotions or offers</li>
+<li>Conduct market surveys, research or data mining</li>
+</ul>
+</li>
+<li>Your personal data will be retained by us and will be accessible to our employees and third parties engaged by us for any of the purposes stated in this Privacy Policy. You authorise us to (a) disclose all or any of your personal data to such third parties, and (b) collect your personal data from any other sources available to us (including credit referral agencies).</li>
+<li>1.5 Insufficient or incorrect personal data provided to us by you may result in delays or failure in providing the products or services purchased by you.</li>
+</ol>
+</div>                            </div>
+        </li>
+        <script type="text/javascript">
+            Validation.add(
+                'olegnax-osc-agreement-checkbox-1',
+                "You must accept the \"TERMS OF USE  and PRIVACY POLICY\"",
+                function(v) {
+                    return !Validation.get('IsEmpty').test(v);
+                }
+            );
+        </script>
+        </ol>
+    <div id="olegnax-osc-review-terms-popup" class="olegnax-osc-popup olegnax-osc-popup-container" style="display:none">
+        <div id="olegnax-osc-review-terms-popup-accept" class="olegnax-osc-popup-title">
+            <div class="olegnax-osc-icon olegnax-osc-icon-term">Terms and Conditions</div>
+            <a class="olegnax-osc-btn-close" href="javascript:void(0)">Close</a>
+        </div>
+        <div class="olegnax-osc-indent">
+            <div class="olegnax-osc-popup-content">
+                <div id="olegnax-osc-review-terms-popup-content">                
+                    <!--  test code  -->                        
+                </div>                        
+            </div>  
+        </div>
+    </div>
+    <div id="olegnax-osc-review-terms-overlay" class="olegnax-osc-popup-overlay" style="display:none"></div>
+</div>
+<script type="text/javascript">
+    var olegnaxOSCReviewTerms = new OnestepcheckoutReviewTerms({
+        containerSelector: "#olegnax-osc-review-terms",
+        itemsSelector: "#olegnax-osc-review-terms ol li",
+        itemLink: "label a",
+        itemCheckbox: "input[type=checkbox]",
+        itemDescription: ".olegnax-osc-review-terms-description-container",
+        popup: {
+            overlaySelector: "#olegnax-osc-review-terms-overlay",
+            containerSelector: "#olegnax-osc-review-terms-popup",
+            contentContainerSelector: "#olegnax-osc-review-terms-popup-content",
+            acceptContainerSelector: "#olegnax-osc-review-terms-popup-accept",
+            buttons: {
+                accept:{
+                    selector: "#olegnax-osc-review-terms-popup-accept button",
+                    enabled: true
+                },
+                close:{
+                    selector: "#olegnax-osc-review-terms-popup-accept a",
+                    enabled: true
+                },
+                close2:{
+                    selector: "#olegnax-osc-popup-accept",
+                    enabled: false
+                }
+            }
+        }
+    });
+</script>
+
+                <?php echo $this->getChildHtml('review.extra'); ?>
+                <div id="olegnax-osc-place-order">                        
+                    <button type="button" title="<?php echo $this->__('Place Order Now'); ?>" id="olegnax-osc-place-order-button">                            
+                        <span class="olegnax-osc-place-order-title"><?php echo $this->__('Place Order Now'); ?></span>
+                        <span class="olegnax-osc-place-order-processing"><?php echo $this->__('Processing...'); ?></span>
+                    </button>
+                    <div class="olegnax-osc-place-order-please-wait">
+                        <?php echo $this->__('Please wait, processing your order...') ?>
+                    </div>
+                </div>
+            </div>
+            <?php $blocks['totals'] = ob_get_contents(); ob_end_clean() ?>
+            <?php $ordered = Mage::helper('olegnax_osc/data')->orderedBlocks($blocks) ?>
+            <?php $useClasses = count($ordered) === 3 ?>
+            <?php $idx = 1; foreach ($ordered as $column => $blocks) : ?>
+                <div class="olegnax-osc-col olegnax-osc-col-<?php echo $idx ?>">
+                    <?php foreach ($blocks as $block) : ?>
+                        <?php echo $block ?>
+                    <?php endforeach ?>
+                </div>
+            <?php $idx++; endforeach ?>
+        </form>
+                
+        <div id="olegnax-osc-popup" class="olegnax-osc-popup" style="display:none">
+            <div id="olegnax-osc-popup-content" class="olegnax-osc-popup-content"></div>
+            <div id="olegnax-osc-popup-accept" class="olegnax-osc-popup-accept">
+                <button type="button"><?php echo $this->__('ACCEPT');?></button>
+                <a href="javascript:void(0)"><?php echo $this->__('Close');?></a>
+            </div>
+        </div>
+        
+        <script type="text/javascript">
+            var olegnaxOSCAddress = new OnestepcheckoutAddress({
+                containersSelector: [
+                    '#olegnax-osc-address-billing',
+                    <?php if(!Mage::helper('olegnax_osc/config')->billingForShipping()) { echo "'#olegnax-osc-address-shipping'"; } ?>
+                ],
+                billingForShippingCheckbox: "billing:use_for_shipping",
+                billing: {
+                    mainContainerSelector: '#olegnax-osc-address-billing',
+                    whenAddressChengedSelect: '#billing-address-select',
+                    newAddressContainerElement: '#olegnax-osc-billing-address-list',
+                    makeNewAccountInput: 'billing:create_account',
+                    passwordContainerElement: '#olegnax-osc-billing-password-area',
+                    addressChangedElementsIds: [
+                        'billing:country_id',
+                        'billing:region',
+                        'billing:region_id',
+                        'billing:city',
+                        'billing:postcode'
+                    ],
+                    addressCountryRegionElementsIds: {
+                        'countryId' : 'billing:country_id',
+                        'region'    : 'billing:region',
+                        'regionId'  : 'billing:region_id'
+                    }
+                },
+                shipping: {
+                    mainContainerSelector: '#olegnax-osc-address-shipping',
+                    whenAddressChengedSelect: '#shipping-address-select',
+                    newAddressContainerSelector: '#olegnax-osc-shipping-address-list',
+                    addressChangeTriggerElementsIds: [
+                        'shipping:country_id',
+                        'shipping:region',
+                        'shipping:region_id',
+                        'shipping:city',
+                        'shipping:postcode'
+                    ],
+                    addressCountryRegionElementsIds: {
+                        'countryId' : 'shipping:country_id',
+                        'region'    : 'shipping:region',
+                        'regionId'  : 'shipping:region_id'
+                    }
+                },
+                addressChangedUrl: <?php echo Zend_Json::encode($this->changedUrl());?>,
+                saveAddressUrl: <?php echo Zend_Json::encode($this->getSaveFormValuesUrl());?>
+            });
+        </script>
+        
+        <script type="text/javascript">
+            var olegnaxOSCForm = new OnestepcheckoutForm({
+                formId: 'olegnax-osc-block-form',
+                cartContainerSelector: "#olegnax-osc-order-review-cart-wrap",
+                // validate shipping and payment
+                shippingMethod: 'shipping_method',
+                shippingMethodAdvice: '#olegnax-osc-shipping-method .validation-advice',
+                shippingValidationMessage: '<?php echo $this->__('Please specify shipping method.'); ?>',
+                shippingMethodWrapperSelector: '#olegnax-osc-shipping-method .sp-methods',
+                paymentMethodName: 'payment[method]',
+                paymentMethodAdvice: '#olegnax-osc-payment-method dl+.validation-advice',
+                paymentValidationMessage: '<?php echo $this->__('Please specify payment method.'); ?>',
+                paymentMethodWrapperSelector: '#olegnax-osc-payment-method .sp-methods',
+                //place order functionality
+                placeOrderUrl: '<?php echo $this->placeOrderUrl(); ?>',
+                successUrl: '<?php echo $this->getUrl('checkout/onepage/success'); ?>',                
+                placeOrderButtonSelector: 'olegnax-osc-place-order-button',
+                granTotalAmountSelector: '.olegnax-osc-place-order-amount',
+                granTotalAmountProcessSelector: '.olegnax-osc-place-order-process',
+                pleaseWaitNoticeSelector: '.olegnax-osc-place-order-please-wait',
+                overlayId: 'olegnax-osc-place-order-overlay',
+                disabledClassName: 'olegnax-osc-place-order-button-disabled',
+                popup: {
+                    overlaySelector: "#olegnax-osc-background",
+                    containerSelector: "#olegnax-osc-popup",
+                    contentContainerSelector: "#olegnax-osc-popup-content",
+                    acceptContainerSelector: "#olegnax-osc-popup-accept",
+                    buttons: {
+                        accept:{
+                            selector: "#olegnax-osc-popup-accept button",
+                            enabled: false
+                        },
+                        close:{
+                            selector: "#olegnax-osc-popup-accept a",
+                            enabled: false
+                        },
+                        close2:{
+                            selector: "#olegnax-osc-popup-accept",
+                            enabled: false
+                        }
+                    }
+                }
+            });
+        </script>
+    </div>
+
+</div>
+<script type="text/javascript">    
+    OnestepcheckoutMain.setConfiguration({
+        updaterConfig: {
+            '48px': 'olegnax-osc-background olegnax-osc-loader olegnax-osc-loader-48',
+            '24px': 'olegnax-osc-background olegnax-osc-loader olegnax-osc-loader-24',
+            '16px': 'olegnax-osc-background olegnax-osc-loader olegnax-osc-loader-16'
+        },
+        map: <?php echo Zend_Json::encode($this->getMap());?>,
+        blocks: [
+            ['shipping_method', '#olegnax-osc-shipping-method'],
+            ['payment_method', '#olegnax-osc-payment-method'],
+            ['review_cart', '#olegnax-osc-order-review-cart-wrap'],
+            ['review_coupon', '#olegnax-osc-review-coupon'],
+            ['review_enterprise_giftcard', '#olegnax-osc-order-review-enterprise-giftcard-wrap'],
+            ['review_enterprise_storecredit', '#olegnax-osc-order-review-enterprise-storecredit-wrap'],
+            ['review_enterprise_points', '#olegnax-osc-order-review-enterprise-points-wrap'],            
+            ['review_totals', '#olegnax-osc-order-review-cart-totals'],
+            ['gift_card', '#olegnax-osc-gift-card']
+        ],
+        updaterBlockClass: 'olegnax-osc-add-loader-into-this-block'
+    });
+</script>

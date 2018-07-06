@@ -980,9 +980,9 @@ jQuery(function($){
  
         //qty
         $('.qty-container .qty-inc').click(function(){
-                var $qty = $(this).parent().next(), $qtyVal;
+                var $qty = $(this).parent().prev(), $qtyVal;
                 $qtyVal = parseInt($qty.val(), 10);
-                if ( $qtyVal < 0 || !$.isNumeric($qtyVal) ) $qtyVal = 0;
+                if ( $qtyVal < 1 || !$.isNumeric($qtyVal) ) $qtyVal = 1;
                 $qty.val(++$qtyVal);
                 return false;
         });

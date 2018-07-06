@@ -31,18 +31,19 @@ $athleteHelper = $this->helper('athlete');
     <div class="add-to-cart">
         <?php if(!$_product->isGrouped()): ?>
 	    <div class="qty-container">
-		    <div class="qty-content-container">
-		        <div class="f-right">
-			        <a class="qty-math qty-inc icon-<?php echo $athleteHelper->getCfg('main/inverted_button_icons', 'athlete_appearance'); ?>" href="#"></a>
-				    <a class="qty-math qty-dec icon-<?php echo $athleteHelper->getCfg('main/inverted_button_icons', 'athlete_appearance'); ?>" href="#"></a>
+		    <div class="qty-content-flex" style="display:flex">
+		    	<div class="neg">
+			    	<button type="button" class="qty-dec btnqty">-</button>
 			    </div>
-			    <input type="text" name="qty" id="qty" maxlength="12" value="<?php echo $this->getProductDefaultQty() * 1 ?>" title="<?php echo $this->__('Qty') ?>" class="input-text qty" />
-			    <label for="qty"><?php echo Mage::helper('core')->quoteEscape($this->__('Qty:')) ?></label>
-			    <div class="clear"></div>
+				<input type="text" name="qty" id="qty" maxlength="12" value="1" title="<?php echo $this->__('Qty') ?>" class="input-text qty" />
+				<div class="plus">
+			        <button type="button" class="qty-inc btnqty">+</button>
+				</div>
+				<div class="clear"></div>
 		    </div>
 	    </div>
         <?php endif; ?>
-		<button type="button" title="<?php echo $buttonTitle ?>" class="button btn-cart icon-<?php echo $athleteHelper->getCfg('product_info/button_icons', 'athlete_appearance'); ?>-<?php echo $athleteHelper->getCfg('product_info/button_icons_hover', 'athlete_appearance'); ?>" onclick="productAddToCartForm.submit(this)"><span><span><?php echo $buttonTitle ?></span></span></button>
+		<button type="button" title="<?php echo $buttonTitle ?>" class="btn" onclick="productAddToCartForm.submit(this)"><span><span><?php echo $buttonTitle ?></span></span></button>
         <?php echo $this->getChildHtml('', true, true) ?>
     </div>
 <?php endif; ?>

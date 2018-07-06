@@ -38,9 +38,9 @@
 			<!-- login form -->
 			<li>
 				<div class="block-title">
-					<strong><span><?php echo $this->__('Sign In') ?></span></strong>
+					<strong><span><?php echo $this->__('LOG IN') ?></span></strong>
 				</div>
-				<div class="block-content">
+				<div class="block-content" id="block-contentid">
 					<?php echo $this->getMessagesBlock()->toHtml() ?>
 					<?php /* Extensions placeholder */ ?>
 					<?php echo $this->getChildHtml('customer.form.login.extra')?>
@@ -61,8 +61,17 @@
 							</li>
 							<?php echo $this->getChildHtml('form.additional.info'); ?>
 						</ul>
-						<button type="submit" class="button" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Login')) ?>" name="send" id="send2"><span><span><?php echo Mage::helper('core')->quoteEscape($this->__('Login')) ?></span></span></button>
 						<a href="<?php echo $this->getForgotPasswordUrl() ?>" class="forgot-password" id="forgot-password"><?php echo Mage::helper('core')->quoteEscape($this->__('Forgot Your Password?')) ?></a>
+
+						<button type="submit" class="btn" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Login')) ?>" name="send" id="send2"><span><span><?php echo Mage::helper('core')->quoteEscape($this->__('Member Login')) ?></span></span></button>
+
+						<div id="cust-fbloginid">
+						<?php echo $this->getLayout()->createBlock("fblogin/fblogin")->setTemplate("fblogin/bt_fblogin.phtml")->toHtml(); ?>
+						<br>
+						<div id="fbnoteid">OR connect through your<br>
+						Facebook account.</div>
+						</div>
+						
 					</form>
 				</div>
 			</li>
@@ -82,14 +91,16 @@
 							</li>
 							<?php echo $this->getChildHtml('form.additional.info'); ?>
 						</ul>
-						<button type="submit" class="button" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Submit')) ?>"><span><span><?php echo Mage::helper('core')->quoteEscape($this->__('Submit')) ?></span></span></button>
+						<button type="submit" class="btn" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Submit')) ?>"><span><span><?php echo Mage::helper('core')->quoteEscape($this->__('Submit')) ?></span></span></button>
 						<a href="<?php echo $this->helper('customer')->getLoginUrl() ?>" class="forgot-password" id="back-login"><?php echo Mage::helper('core')->quoteEscape($this->__('Back to Login')); ?></a>
 					</form>
 				</div>
 			</li>
 		</ul>
-		<div class="new-users">
-			<button type="button" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Register')) ?>" class="button invert" onclick="window.location='<?php echo $this->getCreateAccountUrl() ?>';"><span><span><?php echo Mage::helper('core')->quoteEscape($this->__('Register')) ?></span></span></button>
+		<div class="new-users" id="new-usersid">
+			<h3>NEW TO GLOVIDA?</h3>
+			<p>Sign up now and get $10 off your first purchase!</p>
+			<button type="button" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Register')) ?>" class="btn" onclick="window.location='<?php echo $this->getCreateAccountUrl() ?>';"><span><span><?php echo Mage::helper('core')->quoteEscape($this->__('Register')) ?></span></span></button>
 		</div>
 	</div>
 
@@ -100,3 +111,4 @@
     //]]>
     </script>
 </div>
+

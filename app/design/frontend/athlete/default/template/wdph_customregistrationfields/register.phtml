@@ -31,11 +31,12 @@
  * @var $this Mage_Customer_Block_Form_Register
  */
 ?>
-<div class="account-create">
+<div class="account-create" id="account-createid">
 
 	<div class="block block-login">
-		<div class="block-title">
-			<strong><span><?php echo $this->__('Create an Account') ?></span></strong>
+		<div class="block-title" id="block-titleid">
+			<h3><strong><span><?php echo $this->__('Create an Account') ?></span></strong></h3>
+			<p>By signing up, you get $10 off your first purchase!<p>
 		</div>
 		<div class="block-content">
 
@@ -50,7 +51,7 @@
 					<input type="hidden" name="success_url" value="<?php echo $this->getSuccessUrl() ?>" />
 					<input type="hidden" name="error_url" value="<?php echo $this->getErrorUrl() ?>" />
                     <input type="hidden" name="form_key" value="<?php echo Mage::getSingleton('core/session')->getFormKey() ?>" />
-					<h2><?php echo $this->__('Personal Information') ?></h2>
+					<!--<h2><?php //echo $this->__('Personal Information') ?></h2>-->
 					<ul class="form-list">
 						<li class="fields">
 							<?php echo $this->getLayout()->createBlock('customer/widget_name')->setObject($this->getFormData())->setForceUseCustomerAttributes(true)->toHtml() ?>
@@ -61,16 +62,18 @@
 								<input type="text" name="email" id="email_address" value="<?php echo $this->escapeHtml($this->getFormData()->getEmail()) ?>" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Email Address')) ?>" class="input-text validate-email required-entry" />
 							</div>
 						</li>
-						<?php if ($this->isNewsletterEnabled()): ?>
+						<?php //if ($this->isNewsletterEnabled()): ?>
+							<!--
 							<li class="control">
 								<div class="input-box">
-									<input type="checkbox" name="is_subscribed" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Sign Up for Newsletter')) ?>" value="1" id="is_subscribed"<?php if($this->getFormData()->getIsSubscribed()): ?> checked="checked"<?php endif; ?> class="checkbox" />
+									<input type="checkbox" name="is_subscribed" title="<?php //echo Mage::helper('core')->quoteEscape($this->__('Sign Up for Newsletter')) ?>" value="1" id="is_subscribed"<?php //if($this->getFormData()->getIsSubscribed()): ?> checked="checked"<?php //endif; ?> class="checkbox" />
 								</div>
-								<label for="is_subscribed"><?php echo $this->__('Sign Up for Newsletter') ?></label>
+								<label for="is_subscribed"><?php //echo $this->__('Sign Up for Newsletter') ?></label>
 								<?php /* Extensions placeholder */ ?>
-								<?php echo $this->getChildHtml('customer.form.register.newsletter')?>
+								<?php //echo $this->getChildHtml('customer.form.register.newsletter')?>
 							</li>
-						<?php endif ?>
+							-->
+						<?php //endif ?>
 						<?php $_dob = $this->getLayout()->createBlock('customer/widget_dob') ?>
 						<?php if ($_dob->isEnabled()): ?>
 							<li><?php echo $_dob->setDate($this->getFormData()->getDob())->toHtml() ?></li>
@@ -162,7 +165,7 @@
 
 				<div class="registration-info login-info">
 
-					<h2><?php echo $this->__('Login Information') ?></h2>
+					<!--<h2><?php //echo $this->__('Login Information') ?></h2>-->
 					<ul class="form-list">
 						<li class="fields">
 							<div class="field">
@@ -194,6 +197,16 @@
 								</div>
 							</div>							
 						</li>
+						<?php if ($this->isNewsletterEnabled()): ?>
+							<li class="control" id="control1">
+								<div class="input-box">
+									<input type="checkbox" name="is_subscribed" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Sign Up for Newsletter')) ?>" value="1" id="is_subscribed"<?php if($this->getFormData()->getIsSubscribed()): ?> checked="checked"<?php endif; ?> class="checkbox" />
+								</div>
+								<label for="is_subscribed"><?php echo $this->__('Sign Up for Newsletter') ?></label>
+								<?php /* Extensions placeholder */ ?>
+								<?php echo $this->getChildHtml('customer.form.register.newsletter')?>
+							</li>
+						<?php endif ?>
 						<li class="hear-about-us-text" style="display: none;">
 							<div class="field">
 								<label for="hearaboutustext"><?php echo $this->__('Others, please state:') ?></label>
@@ -202,6 +215,18 @@
 								</div>
 							</div>	
 						</li>
+
+						<?php if ($this->isNewsletterEnabled()): ?>
+							<li class="control" id="control2">
+								<div class="input-box">
+									<input type="checkbox" name="is_subscribed" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Sign Up for Newsletter')) ?>" value="1" id="is_subscribed"<?php if($this->getFormData()->getIsSubscribed()): ?> checked="checked"<?php endif; ?> class="checkbox" />
+								</div>
+								<label for="is_subscribed"><?php echo $this->__('Sign Up for Newsletter') ?></label>
+								<?php /* Extensions placeholder */ ?>
+								<?php echo $this->getChildHtml('customer.form.register.newsletter')?>
+							</li>
+						<?php endif ?>
+
 						<script type="text/javascript">
 						//<![CDATA[
 						jQuery("#hearaboutusdropdown").change(function() {
@@ -218,19 +243,23 @@
 						});
 						//]]>
 						</script>
+
 						<?php echo $this->getChildHtml('form.additional.info'); ?>
 					</ul>
 
 				</div>
 
 				<div class="buttons-set clearfix">
-					<p class="required"><?php echo $this->__('* Required Fields') ?></p>
-					<div class="registration-info">
-						<button type="submit" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Submit')) ?>" class="button"><span><span><?php echo Mage::helper('core')->quoteEscape($this->__('Submit')) ?></span></span></button>
+					<!--<p class="required"><?php //echo $this->__('* Required Fields') ?></p>-->
+					<div class="registration-info" id="register-btnid">
+						<button type="submit" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Submit')) ?>" class="button"><span><span><?php echo Mage::helper('core')->quoteEscape($this->__('Register')) ?></span></span></button>
 					</div>
+					
+					<!--
 					<div class="registration-info login-info">
-						<button onclick="window.location='<?php echo $this->escapeUrl($this->getBackUrl()) ?>'; " type="button" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Back')) ?>" class="button inverted"><span><span><small>&laquo; </small><?php echo Mage::helper('core')->quoteEscape($this->__('Back')) ?></span></span></button>
+						<button onclick="window.location='<?php //echo $this->escapeUrl($this->getBackUrl()) ?>'; " type="button" title="<?php //echo Mage::helper('core')->quoteEscape($this->__('Back')) ?>" class="button inverted"><span><span><small>&laquo; </small><?php //echo Mage::helper('core')->quoteEscape($this->__('Back')) ?></span></span></button>
 					</div>
+					-->
 				</div>
 
 			</form>

@@ -24,6 +24,11 @@
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
+<!--
+<div class="banner-slider">
+    <?php //echo $this->getLayout()->createBlock('cms/block')->setBlockId(sidebar_banner_slider)->toHtml() ?>
+</div>
+-->
 <div class="block block-subscribe">
     <div class="block-title">
        <strong><span><?php echo $this->__('Newsletter') ?></span></strong><!--sign up & get 10% off-->
@@ -31,12 +36,12 @@
     <form action="<?php echo $this->getFormActionUrl() ?>" method="post" id="newsletter-validate-detail">
         <div class="block-content">
             <div class="form-subscribe-header">
-                <label for="newsletter" style="font-size: 16px;"><?php echo $this->__('10% off. Sign up now!') ?></label><!-- Register your email for news and special offers -->
+                <label for="newsletter" style="font-size: 16px;"><?php echo $this->__('10% OFF. SIGN UP NOW!') ?><br><?php echo $this->__('Register your email for news and special offers') ?></label><!-- Register your email for news and special offers -->
             </div>
             <div class="input-box">
-               <input type="text" name="email" id="newsletter" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Sign up for our newsletter')) ?>" class="input-text required-entry validate-email" />
+               <input type="text" placeholder="Enter your email here" name="email" id="newsletter" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Sign up for our newsletter')) ?>" class="input-text required-entry validate-email" />
             </div>
-            <div class="actions">
+            <div class="actions" id="subscribe-btnid">
                 <button type="submit" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Subscribe')) ?>" class="button"><span><span><?php echo Mage::helper('core')->quoteEscape($this->__('Subscribe')) ?></span></span></button>
             </div>
         </div>

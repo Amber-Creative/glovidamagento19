@@ -106,26 +106,57 @@ if (Mage::helper('rewardpoints/customer')->getBalance())
                                 </div>
                                 <div id="rewardpoints-slider-container" style="display: none;">
                                     <div id="rewardpoints-slider">
-                                        <div id="rewardpoints-slider-zoom-out"><img src="<?php echo $this->getSkinUrl('css/magestore/images/slider_btn_zoom_out.gif') ?>" alt="<?php echo $this->__('Zoom Out') ?>" title="<?php echo $this->__('Zoom Out') ?>" /></div>
+                                        <div class="input-point">
+                                            <span>
+                                                <span id="points-youwillspendid"><?php echo $this->__('You will spend') ?></span>
+                                                
+                                                <div id="rewardpoints-slider-zoom-out"><img src="<?php echo $this->getSkinUrl('css/magestore/images/slider_btn_zoom_out.gif') ?>" alt="<?php echo $this->__('Zoom Out') ?>" title="<?php echo $this->__('Zoom Out') ?>" /></div>
+                                                
+                                                <input type="text" class="input-text" id="reward_sales_point" name="reward_sales_point" value="0" />
+
+                                                <div id="rewardpoints-slider-zoom-in"><img src="<?php echo $this->getSkinUrl('css/magestore/images/slider_btn_zoom_in.gif') ?>" alt="<?php echo $this->__('Zoom In') ?>" title="<?php echo $this->__('Zoom In') ?>" /></div>
+
+                                                <span id="points-labelid"><?php echo $_pointName ?></span>
+                                            </span>
+                                        </div>
+
+                                        <!--
+                                        <div id="rewardpoints-slider-zoom-out"><img src="<?php //echo $this->getSkinUrl('css/magestore/images/slider_btn_zoom_out.gif') ?>" alt="<?php //echo $this->__('Zoom Out') ?>" title="<?php //echo $this->__('Zoom Out') ?>" /></div>
+                                        -->
+                                        
                                         <div id="rewardpoints-track">
                                             <div id="rewardpoints-handle"></div>
                                         </div>
-                                        <div id="rewardpoints-slider-zoom-in"><img src="<?php echo $this->getSkinUrl('css/magestore/images/slider_btn_zoom_in.gif') ?>" alt="<?php echo $this->__('Zoom In') ?>" title="<?php echo $this->__('Zoom In') ?>" /></div>
+
+                                        <!--
+                                        <div id="rewardpoints-slider-zoom-in"><img src="<?php //echo $this->getSkinUrl('css/magestore/images/slider_btn_zoom_in.gif') ?>" alt="<?php //echo $this->__('Zoom In') ?>" title="<?php //echo $this->__('Zoom In') ?>" /></div>
+                                        -->
                                     </div>
                                     <div class="rewardpoints-slider-input">
+                                        <!--
                                         <div class="input-point">
                                             <span>
-                                                <?php echo $this->__('You will spend') ?>
+                                                <?php //echo $this->__('You will spend') ?>
                                                 <input type="text" class="input-text" id="reward_sales_point" name="reward_sales_point" value="0" />
-                                                <?php echo $_pointName ?>
+                                                <?php //echo $_pointName ?>
                                             </span>
                                         </div>
+                                        -->
+                                        <!--
+                                        <div id="rewardpoints-slider-zoom-out"><img src="<?php //echo $this->getSkinUrl('css/magestore/images/slider_btn_zoom_out.gif') ?>" alt="<?php //echo $this->__('Zoom Out') ?>" title="<?php //echo $this->__('Zoom Out') ?>" /></div>
+                                        -->
+
                                         <div class="input-max">
                                             <input type="checkbox" id="reward_max_points_used" />
                                             <label for="reward_max_points_used" style="display: inherit;">
                                                 <?php echo $this->__('Maximize my discount with points') ?>
                                             </label>
                                         </div>
+
+                                        <!--
+                                        <div id="rewardpoints-slider-zoom-in"><img src="<?php //echo $this->getSkinUrl('css/magestore/images/slider_btn_zoom_in.gif') ?>" alt="<?php //echo $this->__('Zoom In') ?>" title="<?php //echo $this->__('Zoom In') ?>" /></div>
+                                        -->
+
                                     </div>
                                 </div>
                                 <div id="reward_ajax_total" style="display: none;">

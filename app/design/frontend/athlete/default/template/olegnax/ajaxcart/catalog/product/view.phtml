@@ -75,19 +75,27 @@ if ($athleteHelper->isOnSale($_product))
 				<?php echo $this->getChildHtml('media') ?>
 			</div>
 
-			<div class="product-shop <?php echo $liClass ?>">
+			<div class="product-shop <?php echo $liClass ?>" id="product-shopid">
 
+				<!--
+				<h1 id="brandnameid2"><a href="<?php //echo $_product->getProductUrl() ?>" title="<?php //echo $this->stripTags($_product->getName(), null, true) ?>"><?php //echo $_product->getAttributeText('manufacturer') ?></a></h1>
+				-->
+		        <div class="product-name"><br>
+		        	<h1><a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($_product->getName(), null, true) ?>"><?php echo $_product->getAttributeText('manufacturer') ?></a></h1>
+		        	<h2><a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($_product->getName(), null, true) ?>"><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?> <span class="prodstockarrow">|</span> <span class="prodstocknotify"><?php if ($this->displayProductStockStatus()): ?>
+		<?php if ($_product->isAvailable()): ?>
+		    <p class="availability in-stock"><?php echo $this->__('Availability:') ?> <span><?php echo $this->__('In stock') ?></span></p>
+		<?php else: ?>
+		    <p class="availability out-of-stock"><?php echo $this->__('Availability:') ?> <span><?php echo $this->__('Out of stock') ?></span></p>
+		<?php endif; ?>
+		<?php endif; ?></span></a></h2>
+		        </div>
+
+				<!--
 				<div class="product-name">
-					<h1><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></h1>
+					<h1><?php //echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></h1>
 				</div>
-
-				<?php echo $this->getReviewsSummaryHtml($_product, false, true) ?>
-				<?php echo $this->getChildHtml('alert_urls') ?>
-				<?php echo $this->getChildHtml('product_type_data') ?>
-				<?php echo $this->getTierPriceHtml() ?>
-				<?php echo $this->getChildHtml('extrahint') ?>
-				
-				<?php echo $this->getChildHtml('stocknotification')?>
+				-->
 
 				<?php if ($_product->getShortDescription()): ?>
 					<div class="short-description">
@@ -95,6 +103,25 @@ if ($athleteHelper->isOnSale($_product))
 							class="std"><?php echo $_helper->productAttribute($_product, nl2br($_product->getShortDescription()), 'short_description') ?></div>
 					</div>
 				<?php endif; ?>
+
+				<?php echo $this->getChildHtml('product_type_data') ?>
+				<?php echo $this->getTierPriceHtml() ?>
+				<?php //echo $this->getReviewsSummaryHtml($_product, false, true) ?>
+				<?php //echo $this->getChildHtml('alert_urls') ?>
+				<?php //echo $this->getChildHtml('product_type_data') ?>
+				<?php //echo $this->getTierPriceHtml() ?>
+				<?php //echo $this->getChildHtml('extrahint') ?>
+				
+				<?php echo $this->getChildHtml('stocknotification')?>
+
+				<!--
+				<?php //if ($_product->getShortDescription()): ?>
+					<div class="short-description">
+						<div
+							class="std"><?php //echo $_helper->productAttribute($_product, nl2br($_product->getShortDescription()), 'short_description') ?></div>
+					</div>
+				<?php //endif; ?>
+				-->
 
 				<?php echo $this->getChildHtml('other'); ?>
 
@@ -107,18 +134,31 @@ if ($athleteHelper->isOnSale($_product))
 					<?php echo $this->getChildHtml('extra_buttons') ?>
 				<?php endif; ?>
 
+				<?php if ($athleteHelper->getCfg('product_info/social')) : ?>
+					<div class="social">
+						<?php echo $this->getChildHtml('athlete_addthis') ?>
+						<?php echo $this->getChildHtml('addto') ?>
+					</div>
+				<?php endif; ?>
+
+				<?php echo $this->getReviewsSummaryHtml($_product, false, true) ?>
+				<!--<?php //echo $this->getChildHtml('extrahint') ?>-->
+				<?php echo $this->getChildHtml('alert_urls') ?>
+
 				<?php if ($_product->isSaleable() && $this->hasOptions()): ?>
 					<?php echo $this->getChildChildHtml('container1', '', true, true) ?>
 				<?php endif; ?>
 
-				<?php echo $this->getChildHtml('addto') ?>
+				<!--<?php //echo $this->getChildHtml('addto') ?>-->
 
-				<?php if ($athleteHelper->getCfg('product_info/social')) : ?>
+				<!--
+				<?php //if ($athleteHelper->getCfg('product_info/social')) : ?>
 					<div class="social">
-						<?php echo $this->getChildHtml('athlete_addthis') ?>
+						<?php //echo $this->getChildHtml('athlete_addthis') ?>
+						<?php //echo $this->getChildHtml('addto') ?>
 					</div>
-				<?php endif; ?>
-
+				<?php //endif; ?>
+				-->
 			</div>
 
 			<div class="clearer"></div>
@@ -321,7 +361,9 @@ if ($athleteHelper->isOnSale($_product))
 
 	<?php echo $this->getChildHtml('product_additional_data') ?>
 	<?php echo $this->getChildHtml('content_related') ?>
-	<?php echo $this->getChildHtml('upsell_products') ?>
+	<?php //echo $this->getChildHtml('upsell_products') ?>
 	<?php echo $this->getChildHtml('content_reviews') ?>
+	
+	<div id="reviewpointsid"><?php echo $this->getChildHtml('alert_urls') ?></div>
 
 </div>

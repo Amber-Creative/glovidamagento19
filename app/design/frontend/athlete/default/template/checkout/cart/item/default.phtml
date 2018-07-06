@@ -192,11 +192,16 @@ $canApplyMsrp = Mage::helper('catalog')->canApplyMsrp($_item->getProduct(), Mage
     <?php endif; ?>
     <td class="a-center td-qty">
         <div class="qty-container">
-		    <div class="f-right">
-			    <a class="qty-math qty-inc  icon-<?php echo $athleteHelper->getCfg('main/inverted_button_icons', 'athlete_appearance'); ?>" href="#"></a>
-			    <a class="qty-math qty-dec  icon-<?php echo $athleteHelper->getCfg('main/inverted_button_icons', 'athlete_appearance'); ?>" href="#"></a>
+		    <div class="qty-content-flex" style="display:flex">
+			    <div class="neg">
+			    	<button type="button" class="qty-dec btnqty">-</button>
+			    </div>
+			    <input name="cart[<?php echo $_item->getId() ?>][qty]" value="<?php echo $this->getQty() ?>" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Qty')) ?>" class="input-text qty" maxlength="12" />
+			    <div class="plus">
+			        <button type="button" class="qty-inc btnqty">+</button>
+				</div>
 		    </div>
-		    <input name="cart[<?php echo $_item->getId() ?>][qty]" value="<?php echo $this->getQty() ?>" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Qty')) ?>" class="input-text qty" maxlength="12" />
+		    
 		    <label for="qty" class="td-title"><?php echo $this->__('Qty:') ?></label>
 	    </div>
     </td>
@@ -295,8 +300,9 @@ $canApplyMsrp = Mage::helper('catalog')->canApplyMsrp($_item->getProduct(), Mage
         <?php endif; ?>
     </td>
     <?php endif; ?>
-    <td class="a-center">
-	    <span class="td-title v-top"><?php echo $this->__('Actions') ?></span>
+    <td class="a-center td-price">
+        <!--<span style="display: inline-block; top: 60px !important; position: absolute !important; float: left !important; font-weight: bold;"><?php //echo $this->__('Edit/Del') ?></span>-->
+	    <!--<span class="td-title v-top"><?php //echo $this->__('Actions') ?></span>-->
 	    <span class="nobr">
 		    <a href="<?php echo $this->getDeleteUrl()?>form_key/<?php echo $formKey = Mage::getSingleton('core/session')->getFormKey();?>" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Remove item'))?>" class="btn-remove btn-remove2 icon-<?php echo $athleteHelper->getCfg('main/inverted_button_icons', 'athlete_appearance'); ?>"><?php echo Mage::helper('core')->quoteEscape($this->__('Remove item'))?></a>
 	        <?php if ($isVisibleProduct): ?>

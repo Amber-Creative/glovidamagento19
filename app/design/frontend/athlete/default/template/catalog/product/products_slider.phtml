@@ -26,14 +26,14 @@
 ?>
 <?php
 /**
- * Product list template
+ * Product list template - Product Slider
  *
  * @see Mage_Catalog_Block_Product_List
  */
 ?>
+
 <?php
 $_productCollection=$this->getLoadedProductCollection();
-
 $_helper = $this->helper('catalog/output');
 $athleteHelper = $this->helper('athlete');
 $athleteImgHelper = $this->helper('athlete/image');
@@ -55,10 +55,10 @@ $athleteHelper = $this->helper('athlete');
 <?php if($_productCollection->count()): ?>
 <div class="product-slider-container category-products <?php echo $blockClass ?>">
 	<div class="clearfix title-container" id="title-containerid">
-		<!-- remarks 021218 -->
 		<h3><!--<img src="<?php //echo Mage::getBaseUrl('media') ?>wysiwyg/olegnax/Logo/glovida-logo-content.png" alt="title" /><br>--><?php echo $this->__($this->getBlockTitle());?></h3><div class="slider-nav" id="slider<?php echo $slider_id; ?>_nav" ><ul><li><a class="prev icon-<?php echo $athleteHelper->getCfg('arrows/products_slider_icons', 'athlete_appearance'); ?> mm-icon-<?php echo $athleteHelper->getCfg('arrows/mm_products_slider_icons', 'athlete_appearance'); ?>" href="#"></a></li><li><a class="next icon-<?php echo $athleteHelper->getCfg('arrows/products_slider_icons', 'athlete_appearance'); ?> mm-icon-<?php echo $athleteHelper->getCfg('arrows/mm_products_slider_icons', 'athlete_appearance'); ?>" href="#"></a></li></ul></div>
 	</div>
 	<div class="slider-container">
+
 	    <ul id="slider<?php echo $slider_id; ?>" class="carousel-slider products-grid clearfix"
 	        data-items="<?php echo Mage::helper('athlete/layout')->getSliderItems($columns) ?>"
 	        data-autoscroll="<?php echo $athleteHelper->getCfg('sliders/product_autoscroll'); ?>"
@@ -78,51 +78,79 @@ $athleteHelper = $this->helper('athlete');
             <li class="item <?php echo $liClass ?>">
 	            <div class="item-wrap">
                 <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" class="product-image">
-	                <?php echo $this->helper('athlete')->getLabel($_product);  ?>
 	                <?php echo $athleteImgHelper->getAdditionalImage($_product, $imgX, $imgY ); ?>
 	                <?php echo '<img class="regular_img" src="'. $this->helper('catalog/image')->init($_product, 'small_image')->resize($imgX,$imgY)
 		                .'" data-srcX2="'. $this->helper('catalog/image')->init($_product, 'small_image')->resize($imgX*2, $imgY*2)
 		                .'" width="'.$imgX.'" height="'.$imgY.'" alt="'. $this->stripTags($this->getImageLabel
 			                ($_product, 'small_image'), null, true) .'" />'; ?>
+
+			        <!-- start for the promoid promotional ads -->
+                    <?php if ($_product->getShortDescription()): ?>
+                        <div class="short-description" id="product-category-shortdescid">
+                            <div
+                                class="std"><p><?php echo $_helper->productAttribute($_product, nl2br($_product->getShortDescription()), 'short_description') ?></p></div>
+                        </div>
+                    <?php endif; ?>
+                    <!-- end for the promoid promotional ads -->
                 </a>
-                <div class="product-hover">
+				<p><br></p>
+                <div class="product-hover" id="product-hoverid">
 	                <?php if( $athleteHelper->getCfg('listing/grid_name') ): ?>
-		                <h2 class="product-name"><a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($_product->getName(), null, true) ?>"><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></a></h2><br/>
+	                	<h2 id="brandnameid"><?php echo $_product->getAttributeText('manufacturer') ?></h2>
+		                <p class="product-name"><br><a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($_product->getName(), null, true) ?>"><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></a></p>
+		                <!--<br>
+		                
+		                <div class="ratinggridview" style="float: right;; width:40%">
+			                <?php //if( $athleteHelper->getCfg('listing/list_rating') && $_product->getRatingSummary() ): ?>
+		                       <?php //echo $this->getReviewsSummaryHtml($_product) ?>
+		                    <?php //endif; ?>
+                    	</div>
+                    	-->
+
+                    	<!--
+                    	<br />
+                    	<p id="maintext"><?php //echo substr($_product->getShortDescription(),0,50); ?>...</p>
+                    	-->
+		                <br/>
 	                <?php endif; ?>
 	                <?php if( $athleteHelper->getCfg('listing/grid_price') ): ?>
 		                <?php echo $this->getPriceHtml($_product, true, '_slider') ?>
 	                <?php endif; ?>
                 </div>
+
+
+                <!--
                 <div class="name">
-	                <?php if( $athleteHelper->getCfg('listing/hover_rating') && $_product->getRatingSummary() ): ?>
-		                <?php echo $this->getReviewsSummaryHtml($_product, 'short') ?>
-	                <?php endif; ?>
+	                <?php //if( $athleteHelper->getCfg('listing/hover_rating') && $_product->getRatingSummary() ): ?>
+		                <?php //echo $this->getReviewsSummaryHtml($_product, 'short') ?>
+	                <?php //endif; ?>
 
                     <div class="actions">
-	                    <?php if( $athleteHelper->getCfg('listing/hover_actions') && !$athleteHelper->getCfg('listing/grid_cart') ): ?>
+	                    <?php //if( $athleteHelper->getCfg('listing/hover_actions') && !$athleteHelper->getCfg('listing/grid_cart') ): ?>
 			                <ul class="add-to-links">
-				                <?php if($_product->isSaleable()): ?>
-					                <li><button type="button" title="<?php echo $this->__('Add to Cart') ?>" class="button btn-cart icon-<?php echo $athleteHelper->getCfg('product_listing/action_btn_icons', 'athlete_appearance'); ?>" onclick="setLocation('<?php echo $this->getAddToCartUrl($_product) ?>')"><span><span><?php echo $this->__('Add to Cart') ?></span></span></button></li>
-				                <?php else: ?>
-					                <li><span class="availability out-of-stock"><?php echo $this->__('Out of stock') ?></span></li>
-				                <?php endif; ?>
-				                <?php if ($this->helper('wishlist')->isAllow()) : ?>
-					                <li><a title="<?php echo $this->__('Add to Wishlist') ?>" href="<?php echo $this->helper('wishlist')->getAddUrl($_product) ?>" class="link-wishlist icon-<?php echo $athleteHelper->getCfg('product_listing/action_btn_icons', 'athlete_appearance'); ?>"><?php echo $this->__('Add to Wishlist') ?></a></li>
-				                <?php endif; ?>
-				                <?php if($_compareUrl=$this->getAddToCompareUrl($_product)): ?>
-					                <li><span class="separator">|</span> <a title="<?php echo $this->__('Add to Compare') ?>" href="<?php echo $_compareUrl ?>" class="link-compare icon-<?php echo $athleteHelper->getCfg('product_listing/action_btn_icons', 'athlete_appearance'); ?>"><?php echo $this->__('Add to Compare') ?></a></li>
-				                <?php endif; ?>
+				                <?php //if($_product->isSaleable()): ?>
+					                <li><button type="button" title="<?php //echo $this->__('Add to Cart') ?>" class="button btn-cart icon-<?php //echo $athleteHelper->getCfg('product_listing/action_btn_icons', 'athlete_appearance'); ?>" onclick="setLocation('<?php //echo $this->getAddToCartUrl($_product) ?>')"><span><span><?php //echo $this->__('Add to Cart') ?></span></span></button></li>
+				                <?php //else: ?>
+					                <li><span class="availability out-of-stock"><?php //echo $this->__('Out of stock') ?></span></li>
+				                <?php //endif; ?>
+				                <?php //if ($this->helper('wishlist')->isAllow()) : ?>
+					                <li><a title="<?php //echo $this->__('Add to Wishlist') ?>" href="<?php //echo $this->helper('wishlist')->getAddUrl($_product) ?>" class="link-wishlist icon-<?php //echo $athleteHelper->getCfg('product_listing/action_btn_icons', 'athlete_appearance'); ?>"><?php //echo $this->__('Add to Wishlist') ?></a></li>
+				                <?php //endif; ?>
+				                <?php //if($_compareUrl=$this->getAddToCompareUrl($_product)): ?>
+					                <li><span class="separator">|</span> <a title="<?php //echo $this->__('Add to Compare') ?>" href="<?php //echo $_compareUrl ?>" class="link-compare icon-<?php //echo $athleteHelper->getCfg('product_listing/action_btn_icons', 'athlete_appearance'); ?>"><?php //echo $this->__('Add to Compare') ?></a></li>
+				                <?php //endif; ?>
 			                </ul>
-		                <?php endif; ?>
+		                <?php //endif; ?>
 	                </div>
                 </div>
+            	-->
 
 		            <?php if( $athleteHelper->getCfg('listing/grid_cart') ): ?>
 			            <div class="btn-cart-container clearfix">
 				            <?php if($_product->isSaleable()): ?>
-					            <button type="button" title="<?php echo $this->__('Add to Cart') ?>" class="button btn-cart icon-<?php echo $athleteHelper->getCfg('product_listing/action_btn_icons', 'athlete_appearance'); ?>" onclick="setLocation('<?php echo $this->getAddToCartUrl($_product) ?>')"><span><span><?php echo $this->__('Add to Cart') ?></span></span></button>
+					            <button type="button" title="<?php echo $this->__('Add to Cart') ?>" class="btn" onclick="setLocation('<?php echo $this->getAddToCartUrl($_product) ?>')"><span><span><?php echo $this->__('Add to Cart') ?></span></span></button>
 				            <?php else: ?>
-					            <span class="availability out-of-stock"><?php echo $this->__('Out of stock') ?></span>
+					            <span class="availability out-of-stock"><a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($_product->getName(), null, true) ?>"><?php echo $this->__('Out of stock') ?></a></span>
 				            <?php endif; ?>
 			            </div>
 		            <?php endif; ?>

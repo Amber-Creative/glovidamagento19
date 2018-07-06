@@ -25,36 +25,31 @@
  */
 /**
  * @var Mage_Page_Block_Html_Header $this
+ * 
+ * This file contains logo, navigation, search bar at the top
  */
 ?>
+
 <?php
 $athleteHelper = Mage::helper('athlete');
 $headerCss = 'header-container ' . $athleteHelper->getCfg('header/header_mobile') .' '. $athleteHelper->getCfg('header/header_type');
 $menu_position = $athleteHelper->getCfg('header/menu');
 if (empty($menu_position)) $menu_position = 1;
 ?>
-	<!--TST-->
+	
 	<div class="<?php echo $headerCss; ?> ">
 		<div class="header header-<?php echo $menu_position; ?> row">
 			<div class="grid_18">
-				<div class="table-container">
-					<div class="table-cell v-align-cell logo-container">
-						<div class="logo-container-indent">
-							<?php if ($this->getIsHomePage()): ?>
-								<h1 class="logo">
-									<strong><?php echo $this->getLogoAlt() ?></strong>
-									<a href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>">
-										<?php echo $this->getChildHtml('theme_logo', false) ?>
-									</a>
-								</h1>
-							<?php else: ?>
-								<a href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>" class="logo">
-									<strong><?php echo $this->getLogoAlt() ?></strong>
+				<div id="toplinksidb" class="flex-header-container-desktop"> <!-- Desktop Look -->
+					
+						<!-- Load Logo -->
+						<div class="flex-logo-container">
+									<a href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>" class="logo">
 									<?php echo $this->getChildHtml('theme_logo', false) ?>
-								</a>
-							<?php endif ?>
+									</a>
 						</div>
-					</div>
+					
+					
 					<?php
 					$language = $this->getChildHtml('store_language');
 					$currency = $this->getChildHtml('currencyTop');
@@ -63,29 +58,64 @@ if (empty($menu_position)) $menu_position = 1;
 						$_css_class = 'one-switch';
 					}
 					?>
-					<div class="table-cell header-info-container">
-						<div class="relative">
-							<div class="top-links-container <?php echo $_css_class; ?>">
-								<?php echo $language . $currency . $this->getChildHtml('cart_top') ?>
-								<div class="top-links"><?php echo $this->getChildHtml('topLinks'); ?></div>
-								<div class="clear"></div>
-							</div>
-							<div class="nav-search-container <?php echo($athleteHelper->getCfg('header/search') ? 'search-visible' : '') ?>">
-								<?php echo $this->getChildHtml('topSearch') ?>
-								<?php if ($menu_position == 1) echo $this->getChildHtml('topMenu') ?>
-								<?php if ($menu_position == 2) : ?>
-									<div class="nav-container header-nav-txt std">
-										<?php echo $this->getChildHtml('athlete_header_text') ?>
-									</div>
-								<?php endif ?>
 
+							
+							<div class="flex-search-container <?php echo($athleteHelper->getCfg('header/search') ? 'search-visible' : '') ?>">
+								<?php echo $this->getChildHtml('topSearch') ?>
+							</div> <!-- end nav-search container -->	
+								
+								<div class="flex-profile-container">
+									<a href="https://www.glovida.com/customer/account/login/"><img src="https://www.glovida.com/media/wysiwyg/homeimages/Glovida_UserIcon_100px(h).svg" height="25"></a>
+									<!--<a href="http://35.198.225.109/customer/account/login/"><img src="http://35.198.225.109/media/wysiwyg/homeimages/Glovida_UserIcon.png"></a>-->
+								</div>
+								<?php echo $language . $currency . $this->getChildHtml('cart_top') ?>
 								
 
-							</div>
-						</div>
-					</div>
 				</div>
-				<?php if ($menu_position == 2) : ?>
+				
+				<div id="toplinksida" class="flex-header-container-mobile"> <!-- Mobile Look -->
+					
+						<!-- Load Logo -->
+						<div class="flex-container-mobile-logoicons">
+						
+						
+						
+						<div class="flex-logo-mobile-container">
+									<a href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>" class="logo">
+									<?php echo $this->getChildHtml('theme_logo', false) ?>
+									</a>
+						</div>
+					
+						
+							
+						<div class="flex-profile-container">
+
+							<?php
+								$language = $this->getChildHtml('store_language');
+								$currency = $this->getChildHtml('currencyTop');
+								$_css_class = '';
+								if ((!empty($language) && empty($currency)) || (empty($language) && !empty($currency))) {
+								$_css_class = 'one-switch';
+								}
+							?>
+
+							<!--<a href="http://35.198.225.109/customer/account/login/"><img src="http://35.198.225.109/media/wysiwyg/homeimages/Glovida_UserIcon.png"></a>-->
+							<a href="https://www.glovida.com/customer/account/login/"><img src="https://www.glovida.com/media/wysiwyg/homeimages/Glovida_UserIcon_100px(h).svg" height="25"></a>
+							
+
+							<?php echo $language . $currency . $this->getChildHtml('cart_top') ?>
+						</div>
+						
+					</div>		
+							
+					<div id="nav-searchid" class="nav-search-container  <?php echo($athleteHelper->getCfg('header/search') ? 'search-visible' : '') ?>">
+						<?php echo $this->getChildHtml('topSearch') ?>
+					</div>
+
+				
+				</div>
+				<?php if ($menu_position == 2) : ?> 
+					<!-- Menu -->
 					<div class="header-nav-wide"><?php echo $this->getChildHtml('topMenu') ?></div>
 				<?php endif ?>
 			</div>

@@ -124,7 +124,7 @@ p.back-link a,
 	button.button span{color:#ffffff}
 	.no-touch button.button:hover span {color:#511765}
 	
-	button.button > span:before, #toTop {background-color:#511765}
+	button.button > span:before, #toTop {background-color:#511765 !important;}
 	button.button:hover > span:after, #toTop:hover {background-color:#3ac6d4}
 	
 /* inverted buttons */
@@ -210,9 +210,9 @@ p.back-link a,
 
 /* navigation */
 #nav>li>a,
-.nav-top-title a, .header-nav-txt.std, .header-nav-txt.std a {color:#414042}
+.nav-top-title a, .header-nav-txt.std, .header-nav-txt.std a {color:#511765}
 .nav-top-title:hover div.icon span,
-.nav-top-title.active div.icon span {background-color:#414042}
+.nav-top-title.active div.icon span {background-color:#511765}
 #nav>li>a:hover,
 #nav>li.over>a,
 #nav>li.active>a,
@@ -225,7 +225,7 @@ p.back-link a,
 #nav>li.parent>a:hover:before,
 #nav>li.parent.over>a:before,
 .nav-top-title:hover a,
-.nav-top-title div.icon span, .header-nav-txt.std a{background-color:#511765}
+.nav-top-title div.icon span, .header-nav-txt.std a{background-color:#ffffff}
 #nav > li > a, #nav ul.level0 li > a, .nav-top-title a,
 #nav .std h1, #nav .std h2, #nav .std h3, #nav .std h4, #nav .std h5, #nav .std h6,
 #nav .std .h1, #nav .std .h2, #nav .std .h3, #nav .std .h4, #nav .std .h5, #nav .std .h6,
@@ -236,7 +236,7 @@ p.back-link a,
 #nav>li>a {font-size:16px}
 #nav > li > div,
 #nav ul.level0, #nav ul.level0 ul, #nav ul.level0 div,
-#nav .title-container h3, #nav .title-container .slider-nav {background-color:#faebbc}
+#nav .title-container h3, #nav .title-container .slider-nav {background-color:#fafafa}
 #nav .title-container h3,
 #nav .std h1, #nav .std h2, #nav .std h3, #nav .std h4, #nav .std h5, #nav .std h6,
 #nav .std .h1, #nav .std .h2, #nav .std .h3, #nav .std .h4, #nav .std .h5, #nav .std .h6,
@@ -245,14 +245,14 @@ p.back-link a,
 #nav ul.level0 li a:hover, #nav ul.level0 li.active > a, #nav ul.level0 li.over > a,
 #nav .std a.h1:hover, #nav .std a.h2:hover, #nav .std a.h3:hover, #nav .std a.h4:hover, #nav .std a.h5:hover, #nav .std a.h6:hover {color:#511765;}
 #nav ul.level0 li a:hover, #nav ul.level0 li.active > a, #nav ul.level0 li.over > a,
-#nav .std a.h1:hover, #nav .std a.h2:hover, #nav .std a.h3:hover, #nav .std a.h4:hover, #nav .std a.h5:hover, #nav .std a.h6:hover {background-color:transparent}
+#nav .std a.h1:hover, #nav .std a.h2:hover, #nav .std a.h3:hover, #nav .std a.h4:hover, #nav .std a.h5:hover, #nav .std a.h6:hover {background-color:rgba(0, 0, 0, 0)}
 
 @media only screen and (max-width: 1023px) {
 
 
-	#nav ul.level0 li a {color:#414042}
+	#nav ul.level0 li a {color:#511765}
 	#nav ul.level0 li a:hover, #nav ul.level0 li.active > a, #nav ul.level0 li.over > a, .nav-top-title:hover a {color:#3ac6d4}
-	#nav ul.level0 li a:hover, #nav ul.level0 li.active > a, #nav ul.level0 li.over > a, .nav-top-title:hover a {background-color:#511765}
+	#nav ul.level0 li a:hover, #nav ul.level0 li.active > a, #nav ul.level0 li.over > a, .nav-top-title:hover a {background-color:#ffffff}
 }
 
 /** content_banners **/
@@ -334,10 +334,10 @@ body, .copyright-container {background-color:#ffffff}
 
 /* banners slider */
     .banners-slider-container .banners li {background-color:#ffffff}
-    .text-container .text {background-color:transparent}
+    .text-container .text {background-color:rgba(0, 0, 0, 0)}
     .text-container .text {color:#000000}
     .no-touch .text-container .animate-me .text {color:#3ac6d4 !important}
-	.no-touch .text-container .text:after {background-color:transparent}
+	.no-touch .text-container .text:after {background-color:rgba(0, 0, 0, 0)}
     .text-container .link {background-color:#3ac6d4}
     .text-container .link {color:#ffffff}
 
@@ -459,10 +459,10 @@ body, .copyright-container {background-color:#ffffff}
 	.block a, .block-layered-nav li a, .block-layered-nav li em, .block-viewed li a, .block-account li a, .block-tags li a {color:#414042}
 	.block-viewed li a:hover, .block-wishlist p.product-name a:hover, .content-container .blog-wrap a:hover { background-color: transparent; color:#414042; color:rgba(65,64,66, 0.7 ); }
 	.block a:hover, .block-layered-nav li a:hover, .block-layered-nav li em:hover, .block-layered-nav li.active > a, .block-account li a:hover, .block-tags li a:hover {color:#414042}
-	.block a:hover, .block-layered-nav li a:hover, .block-layered-nav li em:hover, .block-layered-nav li.active > a, .block-account li a:hover, .block-tags li a:hover {background-color:transparent}
+	.block a:hover, .block-layered-nav li a:hover, .block-layered-nav li em:hover, .block-layered-nav li.active > a, .block-account li a:hover, .block-tags li a:hover {background-color:rgba(0, 0, 0, 0)}
 	/* inverted buttons */
 /** poll **/
-	.block-poll .block-subtitle {background-color:transparent}
+	.block-poll .block-subtitle {background-color:rgba(0, 0, 0, 0)}
 	.block-poll .block-subtitle {color:#414042}
 
 /** Global Messages  **/
@@ -500,7 +500,7 @@ body, .copyright-container {background-color:#ffffff}
 	.banners-slider-container .nav a.disabled, .no-touch .banners-slider-container .nav a.disabled:hover { background-color:#e0e0e0}
 
 /* brands slider */
-	.brands-slider-container .title-container .slider-nav a { background-color:transparent}
+	.brands-slider-container .title-container .slider-nav a { background-color:rgba(0, 0, 0, 0)}
 	.no-touch .brands-slider-container .title-container .slider-nav a:hover { background-color:#511765}
 	.brands-slider-container .title-container .slider-nav a.disabled, .no-touch .brands-slider-container .title-container .slider-nav a.disabled:hover { background-color:transparent;}
 
