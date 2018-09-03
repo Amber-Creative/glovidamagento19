@@ -335,10 +335,10 @@ div#pinterest_columns:hover figure:not(:hover) { opacity: 0.9; }
 #search_mini_form :-moz-placeholder { /* Firefox 18- */
   color: #9774a3 !important;
 }
-#nav > li.nav-2 > a span:after,
+/*#nav > li.nav-6 > a span:after*/
+#nav > li.nav-1 > a span:after,
 #nav > li.nav-3 > a span:after,
-#nav > li.nav-5 > a span:after,
-#nav > li.nav-6 > a span:after{
+#nav > li.nav-4 > a span:after{
     content: "▼";
     font-size: 13px;
 }
@@ -435,7 +435,9 @@ div#pinterest_columns:hover figure:not(:hover) { opacity: 0.9; }
 	display:none !important;
 }*/
 #span1id > span a,
-#span2id > span a{
+#span2id > span a,
+#span3id > span a,
+#span4id > span a{
 	color:#414042 !important;
 }
 .product-slider-container-big .title-container h3{
@@ -465,6 +467,23 @@ div#pinterest_columns:hover figure:not(:hover) { opacity: 0.9; }
 	background-color:transparent !important;
 	color:#3ac6d4 !important;
 }
+.cms-glovida-home #span1id span.out-of-stock a,
+.cms-glovida-home #span3id span.out-of-stock a,
+.cms-glovida-home #span4id span.out-of-stock a{
+	border-radius: 10px !important;
+	border:1px solid #414042 !important;
+	color: #d83820 !important;
+	font-size: 20px !important;
+	background: #ffffff !important;
+	padding: 10px 40px 10px 40px !important;
+	text-decoration: none !important;
+	display: block !important;
+	text-align:center !important;
+	margin-top:5px !important;
+}
+/*.cms-glovida-home #span1id span.out-of-stock a{
+	color: #d83820 !important;
+}*/
 /* end homepage product styling */
 
 /* start homepage top footer promo banner */
@@ -625,11 +644,13 @@ button.button > span:before{
 /*#home-subscribeid .input-box > input{
 	width:85% !important;
 }*/
-#span1id, #span2id{
+#span1id, #span2id, #span3id{
 	position:relative !important;
 	display: block !important;
 }
-#span1id > span{
+#span1id > span,
+#span3id > span,
+#span4id > span{
 	position: absolute !important;
     right: 0px !important;
     background: #fff !important;
@@ -669,7 +690,9 @@ button.button > span:before{
 	border-bottom:none !important;
 }
 #span1id .product-slider-container-big .title-container,
-#span2id .product-slider-container-big .title-container{
+#span2id .product-slider-container-big .title-container,
+#span3id .product-slider-container-big .title-container,
+#span4id .product-slider-container-big .title-container{
 	margin:-50px 0 32px 0px !important;
 	border-bottom:1px solid #b3b3b3 !important;
 }
@@ -745,7 +768,9 @@ button.button > span:before{
 }
 /* added for ie fix */
 #span1id .products-grid .product-image img,
-#span2id .products-grid .product-image img{
+#span2id .products-grid .product-image img,
+#span3id .products-grid .product-image img,
+#span4id .products-grid .product-image img{
 	width:100% !important;
 	/*height:350px !important;*/
 	height:auto !important;
@@ -1184,7 +1209,9 @@ button.button > span:before{
 #product-hoverid .product-name > br,
 #catalog-bs-sliderid .owl-item .item-wrap > p,
 #span1id .owl-item .item-wrap > p,
-#span2id .owl-item .item-wrap > p{
+#span2id .owl-item .item-wrap > p,
+#span3id .owl-item .item-wrap > p,
+#span4id .owl-item .item-wrap > p{
 	display: none !important;
 }
 #sidebarid .block-subscribe{
@@ -1199,6 +1226,10 @@ button.button > span:before{
 	display:none !important;
 }
 /* start brands-new menu styling */
+
+/* start login styling */
+
+/* and login styling */
 
 /* start checkout styling 051018 */
 #bt-loginfb{
@@ -1369,8 +1400,8 @@ button.button > span:before{
 	background:#3ac6d4 !important;
 	border-radius: 10px !important;
 }
-.olegnax-osc-block-content #olegnax-osc-review-coupon{
-	display:none !important;
+.olegnax-osc-block-content #olegnax-osc-review-coupon{ /* display the coupon code in http-www-glovida-com-onestepcheckout-index- */
+	display:block !important;
 }
 /*#shopping-cart-totals-table .a-right{
 	text-align:left !important;
@@ -1588,7 +1619,7 @@ button.button > span:before{
 /*#olegnax-osc-area.columns_2 .olegnax-osc-col-3 #olegnax-osc-shipping-method,   Hide Shipping Details */
 #olegnax-osc-payment-methodid #checkout-payment-method-load > dt,
 #olegnax-osc-payment-methodid #checkout-payment-method-load > dd{
-	display:none !important;
+	display:block !important;
 }
 #olegnax-osc-payment-methodid h3.olegnax-osc-icon{
 	color:#511765 !important;
@@ -1798,7 +1829,10 @@ button.button > span:before{
 		text-align:center !important;
 	}
 	/* end category grid styling - example health category - make sidebar in mobile to show and hide */
-	#span1id .products-grid .product-image, #span2id .products-grid .product-image {
+	#span1id .products-grid .product-image,
+	#span2id .products-grid .product-image,
+	#span3id .products-grid .product-image,
+	#span4id .products-grid .product-image{
 	    width: 300px !important;
 	    height: auto !important;
 	    display: table-cell !important;
@@ -1808,13 +1842,21 @@ button.button > span:before{
 	    margin: -25px 0 10px 0px !important;
 	}
 	#span1id .product-slider-container-big .title-container,
-	#span2id .product-slider-container-big .title-container{
+	#span2id .product-slider-container-big .title-container,
+	#span3id .product-slider-container-big .title-container,
+	#span4id .product-slider-container-big .title-container{
 	    margin: -25px 0 10px 0px !important;
 	}
 	#span1id .product-slider-container-big{
 		margin:30px 0 0 !important;
 	}
 	#span2id .product-slider-container-big{
+		margin:15px 0 0 !important;
+	}
+	#span3id .product-slider-container-big{
+		margin:15px 0 0 !important;
+	}
+	#span4id .product-slider-container-big{
 		margin:15px 0 0 !important;
 	}
 	.product-slider-container-big .title-container h3,
@@ -1824,7 +1866,9 @@ button.button > span:before{
 		font-size:22px !important;
 	}
 	#span1id > span,
-	#span2id > span{
+	#span2id > span,
+	#span3id > span,
+	#span4id > span{
 	    /*top: -38px !important;*/
 	    top:25px !important;
 	    position: absolute !important;
@@ -2024,6 +2068,11 @@ button.button > span:before{
 		padding-top:0px !important;
 		padding-bottom:0px !important;
 	}
+	.cms-glovida-home #span3id span.out-of-stock a{
+		padding:7px 20px 7px 20px !important;
+		font-weight: bold !important;
+		font-size: 18px !important;
+	}
 	#product-hoverid .product-name {
 	    width: 100% !important;
 	    min-height: 100px !important;
@@ -2078,7 +2127,9 @@ button.button > span:before{
 	}
 	/* added for ie fix */
 	#span1id .products-grid .product-image,
-	#span2id .products-grid .product-image{
+	#span2id .products-grid .product-image,
+	#span3id .products-grid .product-image,
+	#span4id .products-grid .product-image{
 		width:100% !important;
 		height:100% !important;
 		display:table-cell !important;
